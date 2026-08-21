@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saint-Martin-de-Ré — Restaurants & Bars Guide</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --primary: #0284c7;
+    --primary-light: #e0f2fe;
+    --accent: #f59e0b;
+    --michelin-red: #bd2333;
+    --michelin-bg: #fdf2f2;
+    --google-blue: #4285f4;
+    --tag-bg: #f1f5f9;
+    --tag-text: #334155;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+      --primary: #38bdf8;
+      --primary-light: #0369a1;
+      --accent: #fbbf24;
+      --michelin-red: #ef4444;
+      --michelin-bg: #450a0a;
+      --google-blue: #60a5fa;
+      --tag-bg: #334155;
+      --tag-text: #e2e8f0;
+    }
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  header {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    border-radius: 9999px;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin: 0 0 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: 0 auto 1rem;
+  }
+
+  .guide-meta-banner {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-weight: 600;
+  }
+
+  /* Filter buttons */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.55rem 1.1rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--primary);
+    transform: translateY(-1px);
+  }
+
+  .filter-btn.active {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+  }
+
+  .filter-btn.michelin-btn {
+    border-color: rgba(189, 35, 51, 0.4);
+  }
+
+  .filter-btn.michelin-btn.active {
+    background: var(--michelin-red);
+    border-color: var(--michelin-red);
+    color: #fff;
+  }
+
+  /* Grid layout */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 640px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Card styling */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card.michelin-card {
+    border: 1.5px solid rgba(189, 35, 51, 0.35);
+  }
+
+  .card-img-wrap {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+    background-color: #e2e8f0;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover .card-img {
+    transform: scale(1.04);
+  }
+
+  .price-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(15, 23, 42, 0.85);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    backdrop-filter: blur(4px);
+  }
+
+  .category-pill {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Michelin Badges */
+  .michelin-banner {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #bd2333;
+    color: #ffffff;
+    padding: 5px 11px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 4px 10px rgba(189, 35, 51, 0.4);
+    backdrop-filter: blur(4px);
+  }
+
+  .michelin-rosette {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.6rem;
+    gap: 0.5rem;
+  }
+
+  .card-title-wrap {
+    flex-grow: 1;
+  }
+
+  .card-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .michelin-inline-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--michelin-bg);
+    color: var(--michelin-red);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-top: 4px;
+    border: 1px solid rgba(189, 35, 51, 0.2);
+  }
+
+  /* Google Review Rating Component */
+  .google-rating-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--tag-bg);
+    padding: 4px 9px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .google-logo-svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .google-score {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--text-main);
+  }
+
+  .google-star {
+    color: #f59e0b;
+    font-size: 0.9rem;
+  }
+
+  .google-reviews-count {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .location {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .desc {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+
+  .highlights {
+    background: var(--tag-bg);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .highlights-title {
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+
+  .highlights-list {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .highlights-list li {
+    margin-bottom: 0.25rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .tag.michelin-tag {
+    background: var(--michelin-bg);
+    color: var(--michelin-red);
+    font-weight: 700;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: auto;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+
+  .btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  .btn-primary:hover {
+    filter: brightness(1.1);
+  }
+
+  .btn-michelin {
+    background: var(--michelin-red);
+    color: #fff;
+  }
+
+  .btn-michelin:hover {
+    filter: brightness(1.15);
+  }
+
+  .btn-secondary {
+    background: var(--tag-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--primary);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="badge">Île de Ré · September 2026</div>
+    <h1>Saint-Martin-de-Ré Dining & Drinks Guide</h1>
+    <p class="subtitle">A curated guide to quayside brasseries, Michelin-selected bistronomy, seaside oyster cabins, cocktail terraces, and wine bars.</p>
+    
+    <div class="guide-meta-banner">
+      <span class="meta-item">
+        <svg class="google-logo-svg" viewBox="0 0 24 24" style="width:16px;height:16px">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        Google Reviews verified (scores & review counts)
+      </span>
+      <span>•</span>
+      <span class="meta-item" style="color:var(--michelin-red)">
+        <svg class="michelin-rosette" viewBox="0 0 32 32" style="width:16px;height:16px;fill:var(--michelin-red)">
+          <path d="M16 3c1.2 0 2.2 1.5 2.7 2.6.8.3 1.9.3 2.6.8.6.5.9 1.5 1.2 2.3.9.4 1.7 1 2.1 1.9.4.8.3 1.9.5 2.8.7.6 1.3 1.5 1.4 2.5.1.9-.3 1.9-.4 2.8.4.8.7 1.8.5 2.8-.2.9-.8 1.7-1.3 2.4.1.9-.1 2-.5 2.8-.5.8-1.4 1.3-2.1 1.8-.3.8-.7 1.8-1.3 2.4-.7.5-1.8.6-2.6 1-.5 1-1.5 2.5-2.7 2.5s-2.2-1.5-2.7-2.5c-.8-.4-1.9-.5-2.6-1-.6-.6-1-1.6-1.3-2.4-.7-.5-1.6-1-2.1-1.8-.4-.8-.6-1.9-.5-2.8-.5-.7-1.1-1.5-1.3-2.4-.2-1 .1-2 .5-2.8-.1-.9-.5-1.9-.4-2.8.1-1 .7-1.9 1.4-2.5.2-.9.1-2 .5-2.8.4-.9 1.2-1.5 2.1-1.9.3-.8.6-1.8 1.2-2.3.7-.5 1.8-.5 2.6-.8C13.8 4.5 14.8 3 16 3z"/>
+        </svg>
+        Michelin Guide 2026 Selection Highlights
+      </span>
+    </div>
+    
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterCards('all')">All Venues</button>
+      <button class="filter-btn michelin-btn" onclick="filterCards('michelin')">
+        <svg class="michelin-rosette" viewBox="0 0 32 32" style="width:14px;height:14px">
+          <path d="M16 3c1.2 0 2.2 1.5 2.7 2.6.8.3 1.9.3 2.6.8.6.5.9 1.5 1.2 2.3.9.4 1.7 1 2.1 1.9.4.8.3 1.9.5 2.8.7.6 1.3 1.5 1.4 2.5.1.9-.3 1.9-.4 2.8.4.8.7 1.8.5 2.8-.2.9-.8 1.7-1.3 2.4.1.9-.1 2-.5 2.8-.5.8-1.4 1.3-2.1 1.8-.3.8-.7 1.8-1.3 2.4-.7.5-1.8.6-2.6 1-.5 1-1.5 2.5-2.7 2.5s-2.2-1.5-2.7-2.5c-.8-.4-1.9-.5-2.6-1-.6-.6-1-1.6-1.3-2.4-.7-.5-1.6-1-2.1-1.8-.4-.8-.6-1.9-.5-2.8-.5-.7-1.1-1.5-1.3-2.4-.2-1 .1-2 .5-2.8-.1-.9-.5-1.9-.4-2.8.1-1 .7-1.9 1.4-2.5.2-.9.1-2 .5-2.8.4-.9 1.2-1.5 2.1-1.9.3-.8.6-1.8 1.2-2.3.7-.5 1.8-.5 2.6-.8C13.8 4.5 14.8 3 16 3z"/>
+        </svg>
+        Michelin Selected
+      </button>
+      <button class="filter-btn" onclick="filterCards('brasserie')">Brasseries & Steaks</button>
+      <button class="filter-btn" onclick="filterCards('seafood')">Seafood & Oysters</button>
+      <button class="filter-btn" onclick="filterCards('bistro')">Bistros & Island Dining</button>
+      <button class="filter-btn" onclick="filterCards('bars')">Cocktails & Wine Bars</button>
+      <button class="filter-btn" onclick="filterCards('creperie')">Crêperies & Glacier</button>
+    </div>
+  </header>
+
+  <div class="grid" id="venueGrid">
+
+    <!-- 1. George's (Hotel de Toiras) - MICHELIN -->
+    <div class="card michelin-card" data-category="brasserie bistro michelin">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://hotel-de-toiras.com/_novaimg/4185624-1574022_40_40_2544_3132_650_800.jpg" alt="George's Hotel de Toiras" loading="lazy">
+        <div class="michelin-banner">
+          <svg class="michelin-rosette" viewBox="0 0 32 32">
+            <path d="M16 3c1.2 0 2.2 1.5 2.7 2.6.8.3 1.9.3 2.6.8.6.5.9 1.5 1.2 2.3.9.4 1.7 1 2.1 1.9.4.8.3 1.9.5 2.8.7.6 1.3 1.5 1.4 2.5.1.9-.3 1.9-.4 2.8.4.8.7 1.8.5 2.8-.2.9-.8 1.7-1.3 2.4.1.9-.1 2-.5 2.8-.5.8-1.4 1.3-2.1 1.8-.3.8-.7 1.8-1.3 2.4-.7.5-1.8.6-2.6 1-.5 1-1.5 2.5-2.7 2.5s-2.2-1.5-2.7-2.5c-.8-.4-1.9-.5-2.6-1-.6-.6-1-1.6-1.3-2.4-.7-.5-1.6-1-2.1-1.8-.4-.8-.6-1.9-.5-2.8-.5-.7-1.1-1.5-1.3-2.4-.2-1 .1-2 .5-2.8-.1-.9-.5-1.9-.4-2.8.1-1 .7-1.9 1.4-2.5.2-.9.1-2 .5-2.8.4-.9 1.2-1.5 2.1-1.9.3-.8.6-1.8 1.2-2.3.7-.5 1.8-.5 2.6-.8C13.8 4.5 14.8 3 16 3z"/>
+          </svg>
+          MICHELIN Guide 2026
+        </div>
+        <span class="price-tag">€€€€</span>
+        <span class="category-pill">Chic Brasserie</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">George’s</h3>
+            <span class="michelin-inline-badge">
+              <svg class="michelin-rosette" viewBox="0 0 32 32" style="width:11px;height:11px;fill:var(--michelin-red)">
+                <path d="M16 3c1.2 0 2.2 1.5 2.7 2.6.8.3 1.9.3 2.6.8.6.5.9 1.5 1.2 2.3.9.4 1.7 1 2.1 1.9.4.8.3 1.9.5 2.8.7.6 1.3 1.5 1.4 2.5.1.9-.3 1.9-.4 2.8.4.8.7 1.8.5 2.8-.2.9-.8 1.7-1.3 2.4.1.9-.1 2-.5 2.8-.5.8-1.4 1.3-2.1 1.8-.3.8-.7 1.8-1.3 2.4-.7.5-1.8.6-2.6 1-.5 1-1.5 2.5-2.7 2.5s-2.2-1.5-2.7-2.5c-.8-.4-1.9-.5-2.6-1-.6-.6-1-1.6-1.3-2.4-.7-.5-1.6-1-2.1-1.8-.4-.8-.6-1.9-.5-2.8-.5-.7-1.1-1.5-1.3-2.4-.2-1 .1-2 .5-2.8-.1-.9-.5-1.9-.4-2.8.1-1 .7-1.9 1.4-2.5.2-.9.1-2 .5-2.8.4-.9 1.2-1.5 2.1-1.9.3-.8.6-1.8 1.2-2.3.7-.5 1.8-.5 2.6-.8C13.8 4.5 14.8 3 16 3z"/>
+              </svg>
+              Michelin Guide Selected
+            </span>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.1</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(155+)</span>
+          </div>
+        </div>
+        <div class="location">📍 1 Quai Job Foran / Hôtel de Toiras (Relais & Châteaux)</div>
+        <p class="desc">Official Michelin Guide selected brasserie on the port entrance. Tasteful seaside theme and vibrant, upscale terrace directly overlooking the marina yachts.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Menu Highlights</div>
+          <ul class="highlights-list">
+            <li>Prime French beef cuts & roasted fillet</li>
+            <li>Line-caught Atlantic turbot and sea bass</li>
+            <li>Seafood platters & fresh local oysters</li>
+            <li>Exceptional wine & Champagne cellar</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag michelin-tag">⭐ Michelin Selected</span>
+          <span class="tag">Harbour View</span>
+          <span class="tag">Steaks</span>
+          <span class="tag">Seafood</span>
+          <span class="tag">Online Booking</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://bookings.zenchef.com/results?rid=356211&fullscreen=1" target="_blank" class="btn btn-primary">Book Table</a>
+          <a href="https://guide.michelin.com/gb/en/nouvelle-aquitaine/saint-martin-de-r/restaurant/george-s" target="_blank" class="btn btn-secondary">Michelin Guide</a>
+          <a href="tel:+33546354032" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Le Serghi - MICHELIN -->
+    <div class="card michelin-card" data-category="bistro seafood brasserie michelin">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="Le Serghi" loading="lazy">
+        <div class="michelin-banner">
+          <svg class="michelin-rosette" viewBox="0 0 32 32">
+            <path d="M16 3c1.2 0 2.2 1.5 2.7 2.6.8.3 1.9.3 2.6.8.6.5.9 1.5 1.2 2.3.9.4 1.7 1 2.1 1.9.4.8.3 1.9.5 2.8.7.6 1.3 1.5 1.4 2.5.1.9-.3 1.9-.4 2.8.4.8.7 1.8.5 2.8-.2.9-.8 1.7-1.3 2.4.1.9-.1 2-.5 2.8-.5.8-1.4 1.3-2.1 1.8-.3.8-.7 1.8-1.3 2.4-.7.5-1.8.6-2.6 1-.5 1-1.5 2.5-2.7 2.5s-2.2-1.5-2.7-2.5c-.8-.4-1.9-.5-2.6-1-.6-.6-1-1.6-1.3-2.4-.7-.5-1.6-1-2.1-1.8-.4-.8-.6-1.9-.5-2.8-.5-.7-1.1-1.5-1.3-2.4-.2-1 .1-2 .5-2.8-.1-.9-.5-1.9-.4-2.8.1-1 .7-1.9 1.4-2.5.2-.9.1-2 .5-2.8.4-.9 1.2-1.5 2.1-1.9.3-.8.6-1.8 1.2-2.3.7-.5 1.8-.5 2.6-.8C13.8 4.5 14.8 3 16 3z"/>
+          </svg>
+          MICHELIN Guide 2026
+        </div>
+        <span class="price-tag">€€€</span>
+        <span class="category-pill">Port Bistronomy</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">Le Serghi</h3>
+            <span class="michelin-inline-badge">
+              <svg class="michelin-rosette" viewBox="0 0 32 32" style="width:11px;height:11px;fill:var(--michelin-red)">
+                <path d="M16 3c1.2 0 2.2 1.5 2.7 2.6.8.3 1.9.3 2.6.8.6.5.9 1.5 1.2 2.3.9.4 1.7 1 2.1 1.9.4.8.3 1.9.5 2.8.7.6 1.3 1.5 1.4 2.5.1.9-.3 1.9-.4 2.8.4.8.7 1.8.5 2.8-.2.9-.8 1.7-1.3 2.4.1.9-.1 2-.5 2.8-.5.8-1.4 1.3-2.1 1.8-.3.8-.7 1.8-1.3 2.4-.7.5-1.8.6-2.6 1-.5 1-1.5 2.5-2.7 2.5s-2.2-1.5-2.7-2.5c-.8-.4-1.9-.5-2.6-1-.6-.6-1-1.6-1.3-2.4-.7-.5-1.6-1-2.1-1.8-.4-.8-.6-1.9-.5-2.8-.5-.7-1.1-1.5-1.3-2.4-.2-1 .1-2 .5-2.8-.1-.9-.5-1.9-.4-2.8.1-1 .7-1.9 1.4-2.5.2-.9.1-2 .5-2.8.4-.9 1.2-1.5 2.1-1.9.3-.8.6-1.8 1.2-2.3.7-.5 1.8-.5 2.6-.8C13.8 4.5 14.8 3 16 3z"/>
+              </svg>
+              Michelin Guide Selected
+            </span>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.5</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(800+)</span>
+          </div>
+        </div>
+        <div class="location">📍 15 Quai Georges Clemenceau</div>
+        <p class="desc">Michelin Guide selected bistronomy run by Chef Philippe Tredgeu right on the quayside. Refined culinary technique paired with fresh regional Atlantic produce.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Menu Highlights</div>
+          <ul class="highlights-list">
+            <li>Line-caught roasted fish with seasonal garnishes</li>
+            <li>Tender roasted meats & slow-cooked specials</li>
+            <li>Handcrafted starters & gourmet French desserts</li>
+            <li>Top-notch curated wine cellar</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag michelin-tag">⭐ Michelin Selected</span>
+          <span class="tag">Bistronomy</span>
+          <span class="tag">Harbourfront</span>
+          <span class="tag">Creative French</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://leserghi.com/la-carte/" target="_blank" class="btn btn-primary">View Menu</a>
+          <a href="https://guide.michelin.com/gb/en/nouvelle-aquitaine/saint-martin-de-r/restaurant/le-serghi" target="_blank" class="btn btn-secondary">Michelin Guide</a>
+          <a href="tel:+33546665959" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Ré Ostréa -->
+    <div class="card" data-category="seafood">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80" alt="Re Ostrea" loading="lazy">
+        <span class="price-tag">€€</span>
+        <span class="category-pill">Rustic Oyster Shack</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">Ré Ostréa (Didier Fournier)</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.5</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(2,040+)</span>
+          </div>
+        </div>
+        <div class="location">📍 Chemin de la Galère (Coastal Path / Sea Wall)</div>
+        <p class="desc">Open-air oyster grower's shack perched right on the coastal wall facing the open Atlantic (~10 min walk from port). Spectacular sunset spot for Saturday arrival night.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Menu Highlights</div>
+          <ul class="highlights-list">
+            <li>Oysters straight from the grower's water beds</li>
+            <li>Pink prawns, langoustines & whelks (bulots) with mayo</li>
+            <li>Country terrines & crusty bread with demi-sel butter</li>
+            <li>Chilled local Charentais white & rosé wine</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Saturday Pick</span>
+          <span class="tag">Sunset View</span>
+          <span class="tag">Fresh Oysters</span>
+          <span class="tag">Closes ~20:00</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://www.instagram.com/re_ostrea/" target="_blank" class="btn btn-primary">Instagram</a>
+          <a href="tel:+33663918019" class="btn btn-secondary">📞 Call +33 6 63 91 80 19</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. La Baleine Bleue -->
+    <div class="card" data-category="bistro bars seafood">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://static.wixstatic.com/media/9d58ef_9d42bf7a171e43e1b7d4d4208b4a2f93~mv2.jpeg" alt="La Baleine Bleue" loading="lazy">
+        <span class="price-tag">€€€</span>
+        <span class="category-pill">Island Garden & Lounge</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">La Baleine Bleue</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.1</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(690+)</span>
+          </div>
+        </div>
+        <div class="location">📍 4 Quai Launay Razilly (Îlot du Port)</div>
+        <p class="desc">Charming shaded garden terrace tucked on the harbour islet. Shifts from relaxed seaside lunch into an upbeat cocktail and lounge venue in the evening.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Menu Highlights</div>
+          <ul class="highlights-list">
+            <li>Plancha octopus with XO sauce & piquillos (€34)</li>
+            <li>Meagre fillet with Île de Ré seaweed butter (€29)</li>
+            <li>French beef fillet with black garlic sauce (€32)</li>
+            <li>Lobster roll with new potatoes (€39)</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Garden Terrace</span>
+          <span class="tag">Cocktails</span>
+          <span class="tag">Gastronomy</span>
+          <span class="tag">Online Booking</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://book.easytable.com/book/?id=ba9ab&lang=auto" target="_blank" class="btn btn-primary">Book Table</a>
+          <a href="https://www.baleinebleue.com/le-menu" target="_blank" class="btn btn-secondary">Menu</a>
+          <a href="tel:+33546079732" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Le Saint-Mart' -->
+    <div class="card" data-category="creperie brasserie">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80" alt="Le Saint Mart" loading="lazy">
+        <span class="price-tag">€€</span>
+        <span class="category-pill">Top Rated Crêperie</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">Le Saint-Mart’</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.7</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(450+)</span>
+          </div>
+        </div>
+        <div class="location">📍 16 Quai Nicolas Baudin (Îlot du Port)</div>
+        <p class="desc">Highest-rated casual spot on the port. Celebrated for 17+ varieties of crispy buckwheat galettes, generous gourmet beef burgers, and artisan sweet crêpes.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Menu Highlights</div>
+          <ul class="highlights-list">
+            <li>17+ Buckwheat Galettes (Complète, Chèvre-Miel, Rustique)</li>
+            <li>Gourmet 150g French beef burgers with chips (€18–19)</li>
+            <li>Fresh seafood platters with local oysters (€22)</li>
+            <li>Dessert crêpes with homemade salted butter caramel</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Top Google Score (4.7)</span>
+          <span class="tag">Galettes & Burgers</span>
+          <span class="tag">Harbour Terrace</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://le-saint-mart.eatbu.com/?lang=en" target="_blank" class="btn btn-primary">Website & Menu</a>
+          <a href="tel:+33546099745" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Le Tout du Cru -->
+    <div class="card" data-category="bars seafood bistro">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80" alt="Le Tout du Cru" loading="lazy">
+        <span class="price-tag">€€</span>
+        <span class="category-pill">Wine Bar & Raw Bar</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">Le Tout du Cru</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.5</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(2,250+)</span>
+          </div>
+        </div>
+        <div class="location">📍 14 Rue de Sully (Old Cinema Courtyard)</div>
+        <p class="desc">Bustling, convivial wine bar in the old town with wooden wine barrels and communal tables. Everything is raw, cured, or freshly shucked from the ocean.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Highlights</div>
+          <ul class="highlights-list">
+            <li>Huge selection of organic & natural French wines</li>
+            <li>Freshly shucked oysters, sea urchins & prawns</li>
+            <li>Beef and bluefin tuna tartares prepared on order</li>
+            <li>Iberian charcuterie & artisanal cheese boards</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Wine Bar</span>
+          <span class="tag">Tapas & Raw Bar</span>
+          <span class="tag">Lively Vibe</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="tel:+33952906000" class="btn btn-primary">📞 Call +33 9 52 90 60 00</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Le Bistrot du Marin -->
+    <div class="card" data-category="brasserie bistro">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80" alt="Le Bistrot du Marin" loading="lazy">
+        <span class="price-tag">€€</span>
+        <span class="category-pill">Walk-In Institution</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">Le Bistrot du Marin</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.3</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(1,650+)</span>
+          </div>
+        </div>
+        <div class="location">📍 10 Quai Nicolas Baudin</div>
+        <p class="desc">Beloved local institution serving hearty <em>cuisine grand-mère</em>. No reservations accepted — turn up early around 18:45, grab an aperitif, and claim a table.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Menu Highlights</div>
+          <ul class="highlights-list">
+            <li>Unfussy, perfectly grilled beef steaks with crispy frites</li>
+            <li>Daily Atlantic market catch & pan-fried squid</li>
+            <li>Warm homemade tarts & daily chalkboard specials</li>
+            <li>Authentic, bustling maritime atmosphere</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">No Bookings (Walk-In)</span>
+          <span class="tag">Steaks</span>
+          <span class="tag">Local Favourite</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://www.facebook.com/bistrotdumarin/" target="_blank" class="btn btn-primary">Facebook Page</a>
+          <a href="tel:+33546687466" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. La Marine -->
+    <div class="card" data-category="brasserie seafood">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://static.wixstatic.com/media/6e2657_6e734dfa9e6c46fa91277c5a99fa5681~mv2.jpg" alt="La Marine" loading="lazy">
+        <span class="price-tag">€€ - €€€</span>
+        <span class="category-pill">Classic Brasserie</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">La Marine</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.0</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(3,290+)</span>
+          </div>
+        </div>
+        <div class="location">📍 31 Quai de La Poithevinière</div>
+        <p class="desc">A genuine, large French harbour brasserie with a wide, bustling sun terrace directly facing the marina boats and harbour activity.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Menu Highlights</div>
+          <ul class="highlights-list">
+            <li>Traditional <em>Choucroute de la mer</em> (Seafood Sauerkraut)</li>
+            <li>Whole grilled Atlantic fish of the day with fleur de sel</li>
+            <li>Bavette & Entrecôte steaks with homemade frites</li>
+            <li>Generous seafood & shellfish platters</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Steak & Frites</span>
+          <span class="tag">Seafood Platters</span>
+          <span class="tag">Port Terrace</span>
+          <span class="tag">Online Booking</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://app.overfull.fr/booking-v2?key_id=34ArcUQ9gBX&source=Web" target="_blank" class="btn btn-primary">Book Table</a>
+          <a href="https://www.lamarine-re.com/menus" target="_blank" class="btn btn-secondary">Menu</a>
+          <a href="tel:+33546092002" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Le Bar 1721 -->
+    <div class="card" data-category="bars">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80" alt="Le Bar 1721" loading="lazy">
+        <span class="price-tag">€€€</span>
+        <span class="category-pill">Courtyard Lounge Bar</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">Le Bar 1721 (La Baronnie)</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.5</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(50+)</span>
+          </div>
+        </div>
+        <div class="location">📍 17 Rue Baron de Chantal (Hôtel La Baronnie)</div>
+        <p class="desc">Secret luxury garden lounge hidden within the 18th-century stone walls of Michelin Guide listed Hôtel La Baronnie & Spa. Intimate, romantic, and tranquil.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Drink Highlights</div>
+          <ul class="highlights-list">
+            <li>Craft botanical & bespoke cocktails</li>
+            <li>Rare regional Cognacs, Pineau des Charentes & Armagnac</li>
+            <li>Prestige Champagne by the glass & bottle</li>
+            <li>Refined aperitif charcuterie & artisanal cheese plates</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Secret Courtyard</span>
+          <span class="tag">Craft Cocktails</span>
+          <span class="tag">Romantic Lounge</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://hotel-labaronnie.com/en/le-bar-1721/" target="_blank" class="btn btn-primary">Bar Page</a>
+          <a href="tel:+33546092129" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. La Cible Beach Bar -->
+    <div class="card" data-category="bars seafood">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="La Cible" loading="lazy">
+        <span class="price-tag">€€ - €€€</span>
+        <span class="category-pill">Beachfront Bar & Grill</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">La Cible</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.1</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(800+)</span>
+          </div>
+        </div>
+        <div class="location">📍 Avenue de la Plage (Plage de la Cible)</div>
+        <p class="desc">The only beach bar and restaurant positioned right on the sand in Saint-Martin. Wide wooden sun deck with panoramic ocean views and sea breezes.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Highlights</div>
+          <ul class="highlights-list">
+            <li>Sunset cocktails, craft beers & chilled Rosé</li>
+            <li>Grilled fish, calamari & seafood platters</li>
+            <li>Burgers, steaks & Mediterranean salads</li>
+            <li>Relaxed barefoot afternoon-into-sunset atmosphere</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Beachfront</span>
+          <span class="tag">Sunset Drinks</span>
+          <span class="tag">Ocean View Deck</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="http://lacible-restaurantbar.fr/" target="_blank" class="btn btn-primary">Website</a>
+          <a href="tel:+33546092772" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Le Bastion -->
+    <div class="card" data-category="bars">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&fit=crop&w=800&q=80" alt="Le Bastion" loading="lazy">
+        <span class="price-tag">€€€</span>
+        <span class="category-pill">Ramparts Bar & Late Night</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">Le Bastion</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">3.9</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(150+)</span>
+          </div>
+        </div>
+        <div class="location">📍 50 Cours Pasteur (Near Citadel)</div>
+        <p class="desc">Historic stone-vaulted venue built right next to the UNESCO Vauban fortifications. Early evening wine and tapas lounge morphing into a late-night bar until 02:00.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Highlights</div>
+          <ul class="highlights-list">
+            <li>Cocktails, shots & premium spirits</li>
+            <li>Tapas boards & sharing bites</li>
+            <li>DJ sets, live music & weekend party vibe</li>
+            <li>Open late (up to 02:00)</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Late Night (02:00)</span>
+          <span class="tag">Cocktails & DJs</span>
+          <span class="tag">Historic Setting</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://www.lebastioniledere.com/" target="_blank" class="btn btn-primary">Website</a>
+          <a href="tel:+33546001094" class="btn btn-secondary">📞 Call</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. La Martinière -->
+    <div class="card" data-category="creperie">
+      <div class="card-img-wrap">
+        <img class="card-img" src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80" alt="La Martiniere" loading="lazy">
+        <span class="price-tag">€</span>
+        <span class="category-pill">Master Artisan Glacier</span>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">La Martinière</h3>
+          </div>
+          <div class="google-rating-wrap" title="Google Reviews rating">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span class="google-score">4.6</span>
+            <span class="google-star">★</span>
+            <span class="google-reviews-count">(3,000+)</span>
+          </div>
+        </div>
+        <div class="location">📍 17 Quai de La Poithevinière</div>
+        <p class="desc">The legendary master glacier of the Atlantic coast. An absolute must-visit institution for dessert after dinner while strolling around the port.</p>
+        
+        <div class="highlights">
+          <div class="highlights-title">Flavour Highlights</div>
+          <ul class="highlights-list">
+            <li>60+ artisan flavours made locally on Île de Ré</li>
+            <li>Salted butter caramel & roasted Charentais hazelnut</li>
+            <li>Local specialities: Chèvre cheese with Pineau, Salicorne & Lemon</li>
+            <li>Artisanal waffles, crepes & ice-cream macaroons</li>
+          </ul>
+        </div>
+
+        <div class="tags">
+          <span class="tag">Dessert Must-Do</span>
+          <span class="tag">60+ Flavours</span>
+          <span class="tag">Harbourfront</span>
+        </div>
+
+        <div class="card-actions">
+          <a href="https://la-martiniere.fr/" target="_blank" class="btn btn-primary">Website</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <p>Saint-Martin-de-Ré Dining & Drinks Guide · Prepared for September 2026 trip · Verified against Google Reviews & Michelin Guide 2026</p>
+  </div>
+</div>
+
+<script>
+function filterCards(category) {
+  const buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    if (category === 'all') {
+      card.style.display = 'flex';
+    } else {
+      const categories = card.getAttribute('data-category').split(' ');
+      if (categories.includes(category)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+}
+</script>
+
+</body>
+</html>
