@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Killigrew Dad's European Golf Tour — March 2027 Shortlist</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --primary: #15803d;
+    --primary-light: #dcfce7;
+    --primary-dark: #166534;
+    --accent: #d97706;
+    --accent-light: #fef3c7;
+    --tag-bg: #f1f5f9;
+    --tag-text: #334155;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1320;
+      --card-bg: #152238;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #243552;
+      --primary: #22c55e;
+      --primary-light: #052e16;
+      --primary-dark: #4ade80;
+      --accent: #f59e0b;
+      --accent-light: #451a03;
+      --tag-bg: #1e293b;
+      --tag-text: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin: 0 0 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .flight-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  /* Quick Stats Grid */
+  .stats-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .stat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+
+  .stat-card .val {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-card .lbl {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Comparison Table */
+  .table-wrapper {
+    overflow-x: auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 3.5rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  th {
+    background: var(--tag-bg);
+    padding: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background-color: var(--tag-bg); }
+
+  /* Resort Section Cards */
+  .resort-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .resort-hero {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+  }
+
+  .resort-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .resort-hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(11,19,32,0.95) 0%, rgba(11,19,32,0.6) 50%, transparent 100%);
+    padding: 2rem 1.5rem 1.25rem;
+    color: #ffffff;
+  }
+
+  .resort-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .resort-title-row h2 {
+    font-size: 2rem;
+    margin: 0 0 0.25rem;
+    font-weight: 800;
+  }
+
+  .resort-loc {
+    font-size: 1rem;
+    color: #94a3b8;
+  }
+
+  .price-tag {
+    background: var(--primary);
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-align: right;
+  }
+
+  .price-tag small {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+
+  .resort-body {
+    padding: 1.75rem;
+  }
+
+  .resort-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .meta-chip {
+    background: var(--tag-bg);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .grid-2col {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1.75rem;
+  }
+
+  @media (max-width: 850px) {
+    .grid-2col { grid-template-columns: 1fr; }
+    h1 { font-size: 2rem; }
+    .resort-title-row h2 { font-size: 1.6rem; }
+  }
+
+  .section-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .section-block h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 0 0 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .course-item {
+    background: var(--tag-bg);
+    border-left: 4px solid var(--primary);
+    padding: 0.85rem 1rem;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .course-item-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .course-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .food-box {
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    color: var(--tag-text);
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .food-box strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.95rem;
+  }
+
+  .action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: #ffffff;
+  }
+
+  .btn-secondary {
+    background: var(--tag-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+  }
+
+  footer {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge">Killigrew Dad's European Golf Tour</div>
+    <h1>March 2027 Golf Tour Shortlist</h1>
+    <div class="subtitle">
+      Research and comparative guide for a 3-night midweek golf getaway flying direct from London Luton (LTN) to Spain & Portugal.
+    </div>
+    <div class="flight-pill">
+      <span>🛫 Departing: <strong>London Luton (LTN)</strong></span>
+      <span>•</span>
+      <span>⏱️ Duration: <strong>3 Nights Midweek (Tue–Fri / Mon–Thu)</strong></span>
+      <span>•</span>
+      <span>⛳ Rounds: <strong>3 Rounds of Golf</strong></span>
+    </div>
+  </header>
+
+  <!-- High-Level Stats -->
+  <div class="stats-summary-grid">
+    <div class="stat-card">
+      <div class="val">19.5°C</div>
+      <div class="lbl">Avg March Daytime High</div>
+    </div>
+    <div class="stat-card">
+      <div class="val">7.5 hrs</div>
+      <div class="lbl">Avg Daily Sunshine</div>
+    </div>
+    <div class="stat-card">
+      <div class="val">20–55m</div>
+      <div class="lbl">Transfer Time from Airport</div>
+    </div>
+    <div class="stat-card">
+      <div class="val">£490–£780</div>
+      <div class="lbl">Est. Package / Person (3N + 3R)</div>
+    </div>
+  </div>
+
+  <!-- Summary Table -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Resort</th>
+          <th>Country / Area</th>
+          <th>LTN Direct Airport</th>
+          <th>Transfer</th>
+          <th>March Temp</th>
+          <th>Courses</th>
+          <th>Est. Cost (3N+3R)</th>
+          <th>Nearby Towns</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong><a href="#la-cala" style="color:inherit;text-decoration:underline;">La Cala Resort</a></strong></td>
+          <td>Mijas, Costa del Sol (Spain)</td>
+          <td>Malaga (AGP)</td>
+          <td>30 mins</td>
+          <td>19.5°C (4 rain days)</td>
+          <td>3x 18-hole</td>
+          <td>£520 – £620</td>
+          <td>Mijas Pueblo, Fuengirola</td>
+        </tr>
+        <tr>
+          <td><strong><a href="#palmares" style="color:inherit;text-decoration:underline;">Palmares Ocean Living</a></strong></td>
+          <td>Lagos, Algarve (Portugal)</td>
+          <td>Faro (FAO)</td>
+          <td>50 mins</td>
+          <td>19.0°C (5 rain days)</td>
+          <td>27 holes (3x9)</td>
+          <td>£560 – £690</td>
+          <td>Lagos Old Town (5 mins)</td>
+        </tr>
+        <tr>
+          <td><strong><a href="#quinta" style="color:inherit;text-decoration:underline;">Quinta do Lago</a></strong></td>
+          <td>Golden Triangle (Portugal)</td>
+          <td>Faro (FAO)</td>
+          <td>20 mins</td>
+          <td>19.2°C (5 rain days)</td>
+          <td>3x 18-hole</td>
+          <td>£680 – £850</td>
+          <td>Almancil, Vilamoura</td>
+        </tr>
+        <tr>
+          <td><strong><a href="#la-manga" style="color:inherit;text-decoration:underline;">La Manga Club</a></strong></td>
+          <td>Murcia (Spain)</td>
+          <td>Alicante (ALC)</td>
+          <td>60 mins</td>
+          <td>20.2°C (2 rain days)</td>
+          <td>3x 18-hole</td>
+          <td>£490 – £610</td>
+          <td>Cabo de Palos, Los Belones</td>
+        </tr>
+        <tr>
+          <td><strong><a href="#praia-del-rey" style="color:inherit;text-decoration:underline;">Praia D'El Rey & West Cliffs</a></strong></td>
+          <td>Silver Coast (Portugal)</td>
+          <td>Lisbon (LIS)</td>
+          <td>55 mins</td>
+          <td>17.8°C (6 rain days)</td>
+          <td>2x 18-hole</td>
+          <td>£480 – £590</td>
+          <td>Óbidos, Peniche / Baleal</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Resort 1: La Cala Resort -->
+  <div class="resort-card" id="la-cala">
+    <div class="resort-hero">
+      <img src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&w=1400&q=80" alt="La Cala Golf Resort">
+      <div class="resort-hero-overlay">
+        <div class="resort-title-row">
+          <div>
+            <h2>1. La Cala Resort</h2>
+            <div class="resort-loc">Mijas, Costa del Sol, Andalusia, Spain</div>
+          </div>
+          <div class="price-tag">
+            £520 – £620
+            <small>per person (3N + 3 rounds)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="resort-body">
+      <div class="resort-meta-bar">
+        <div class="meta-chip">✈️ <strong>Malaga (AGP)</strong> (30 mins drive)</div>
+        <div class="meta-chip">☀️ <strong>March Weather:</strong> 19.5°C high / 10.5°C low (7.5 hrs sun)</div>
+        <div class="meta-chip">⛳ <strong>Golf:</strong> 54 Championship Holes on-site</div>
+        <div class="meta-chip">🏨 <strong>Hotel:</strong> 4* Superior + Luxury Thermal Spa</div>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="section-block">
+            <h3>⛳ Championship Courses On-Site</h3>
+            <div class="course-list">
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Campo America</span>
+                  <span>Par 72 • 6,009 m</span>
+                </div>
+                <p class="course-desc">Hilly layout with spectacular elevated tee shots overlooking the Sierra de Mijas and the Mediterranean. Wide fairways with dramatic elevation changes.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Campo Asia</span>
+                  <span>Par 72 • 5,925 m</span>
+                </div>
+                <p class="course-desc">The oldest and most strategic course. Demands precision tee shots through narrow valley approaches, elevated greens, and testing water hazards on the 3rd and 5th.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Campo Europa</span>
+                  <span>Par 71 • 6,014 m</span>
+                </div>
+                <p class="course-desc">A flatter course crossing the River Ojen via bridges. Generous fairways, larger greens, and strategic bunkers make it ideal for a relaxed team game.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <h3>🚗 Logistics & Access</h3>
+            <p style="font-size:0.9rem;margin:0;color:var(--text-muted);">
+              • <strong>Direct Luton Flights:</strong> easyJet & Ryanair fly LTN ⇄ AGP daily (approx 2h 45m flight time).<br>
+              • <strong>Airport Transfer:</strong> 35 km (30 mins) via AP-7 toll or A-7 coastal highway. Private minibus transfers are widely available (~€35pp return for a group of 8).
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-block">
+            <h3>🥘 Food & Authenticity</h3>
+            <div class="food-box">
+              <strong>On-Site Andalusian Gastronomy</strong>
+              <em>La Terraza</em> serves authentic Iberian cured ham (Jamón Ibérico de Bellota), grilled sea bass, and Andalusian suckling pig. The Clubhouse serves fresh tapas, albóndigas, and Spanish tortilla.
+            </div>
+            <div class="food-box" style="background:var(--tag-bg);border-color:var(--border);">
+              <strong style="color:var(--text-main);">Nearby Authentic Spanish Dining (10–15 mins)</strong>
+              • <strong>Mijas Pueblo (15 mins):</strong> Iconic whitewashed village perched on the cliff; authentic bodegas with tapas, local Pedro Ximenez wines, and views over the coast.<br>
+              • <strong>La Cala de Mijas (10 mins):</strong> Seaside village famous for rustic beachfront <em>chiringuitos</em> serving freshly grilled <em>espetos de sardinas</em> (sardines on olive-wood skewers) and seafood paella.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <a href="https://www.lacala.com" target="_blank" rel="noopener" class="btn btn-primary">Visit Official Resort Website ↗</a>
+        <a href="https://www.google.com/maps/search/La+Cala+Resort+Mijas" target="_blank" rel="noopener" class="btn btn-secondary">Open in Google Maps 📍</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resort 2: Palmares Ocean Living -->
+  <div class="resort-card" id="palmares">
+    <div class="resort-hero">
+      <img src="https://images.unsplash.com/photo-1592919505780-303950717480?auto=format&fit=crop&w=1400&q=80" alt="Palmares Ocean Living Golf">
+      <div class="resort-hero-overlay">
+        <div class="resort-title-row">
+          <div>
+            <h2>2. Palmares Ocean Living & Golf</h2>
+            <div class="resort-loc">Lagos, Western Algarve, Portugal</div>
+          </div>
+          <div class="price-tag">
+            £560 – £690
+            <small>per person (3N + 3 rounds)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="resort-body">
+      <div class="resort-meta-bar">
+        <div class="meta-chip">✈️ <strong>Faro (FAO)</strong> (50 mins drive)</div>
+        <div class="meta-chip">☀️ <strong>March Weather:</strong> 19.0°C high / 10.0°C low (7.5 hrs sun)</div>
+        <div class="meta-chip">⛳ <strong>Golf:</strong> 27 Holes (Robert Trent Jones Jr.)</div>
+        <div class="meta-chip">🏨 <strong>Hotel:</strong> 5* Boutique Beach Resort & Clubhouse</div>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="section-block">
+            <h3>⛳ 27-Hole Championship Layout</h3>
+            <div class="course-list">
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Alvor Loop (9 holes)</span>
+                  <span>Par 36 • 3,149 m</span>
+                </div>
+                <p class="course-desc">Plays through undulating parkland down into a scenic pine valley with dramatic vistas of the Alvor Estuary.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Lagos Loop (9 holes)</span>
+                  <span>Par 36 • 3,178 m</span>
+                </div>
+                <p class="course-desc">Incorporates two lakes and sweeping views of the Bay of Lagos. Strategic doglegs and rolling greens.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Dunes Loop (9 holes)</span>
+                  <span>Par 36 • 3,184 m</span>
+                </div>
+                <p class="course-desc">True coastal links golf playing right along the sands and dunes of Meia Praia beach. Fast, breezy, and exhilarating.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <h3>🚗 Logistics & Access</h3>
+            <p style="font-size:0.9rem;margin:0;color:var(--text-muted);">
+              • <strong>Direct Luton Flights:</strong> easyJet & Ryanair fly LTN ⇄ FAO daily (approx 2h 50m).<br>
+              • <strong>Airport Transfer:</strong> 85 km (50 mins) straight along the A22 motorway.<br>
+              • <strong>Town Proximity:</strong> Just 5 minutes drive into Lagos historic center.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-block">
+            <h3>🥘 Food & Authenticity</h3>
+            <div class="food-box">
+              <strong>Michelin-Star On-Site + Clubhouse Grill</strong>
+              Home to <em>AL SUD</em> (1 Michelin Star) offering contemporary Atlantic fine dining. The Clubhouse terrace serves traditional <em>Bacalhau à Brás</em>, garlic prawns, and cold Sagres beer overlooking the bay.
+            </div>
+            <div class="food-box" style="background:var(--tag-bg);border-color:var(--border);">
+              <strong style="color:var(--text-main);">Lagos Town Center (5 mins away)</strong>
+              • <strong>Historic Lagos:</strong> 16th-century walled maritime town filled with lively Portuguese *tascas* and seafood grills.<br>
+              • <strong>Signature Dishes:</strong> <em>Cataplana de Marisco</em> (copper-pot seafood stew with clams, prawns, and chorizo), grilled Atlantic sea bream, and Algarvian almond desserts with Medronho.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <a href="https://palmaresliving.com" target="_blank" rel="noopener" class="btn btn-primary">Visit Official Resort Website ↗</a>
+        <a href="https://www.google.com/maps/search/Palmares+Ocean+Living+Lagos" target="_blank" rel="noopener" class="btn btn-secondary">Open in Google Maps 📍</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resort 3: Quinta do Lago -->
+  <div class="resort-card" id="quinta">
+    <div class="resort-hero">
+      <img src="https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?auto=format&fit=crop&w=1400&q=80" alt="Quinta do Lago Golf">
+      <div class="resort-hero-overlay">
+        <div class="resort-title-row">
+          <div>
+            <h2>3. Quinta do Lago & Vale do Lobo</h2>
+            <div class="resort-loc">Golden Triangle, Almancil, Algarve, Portugal</div>
+          </div>
+          <div class="price-tag">
+            £680 – £850
+            <small>per person (3N + 3 rounds)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="resort-body">
+      <div class="resort-meta-bar">
+        <div class="meta-chip">✈️ <strong>Faro (FAO)</strong> (20 mins drive)</div>
+        <div class="meta-chip">☀️ <strong>March Weather:</strong> 19.2°C high / 10.2°C low (7.5 hrs sun)</div>
+        <div class="meta-chip">⛳ <strong>Golf:</strong> 5 World-Class Championship Courses</div>
+        <div class="meta-chip">🏨 <strong>Hotel:</strong> 5* Luxury Resort & Magnolia Hotel</div>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="section-block">
+            <h3>⛳ Championship Courses</h3>
+            <div class="course-list">
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Quinta do Lago South</span>
+                  <span>Par 72 • 6,488 m</span>
+                </div>
+                <p class="course-desc">8-time Portuguese Open venue. Carved through umbrella pines with dramatic water hazards on the 15th, 16th, and 17th holes.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Quinta do Lago North</span>
+                  <span>Par 72 • 6,126 m</span>
+                </div>
+                <p class="course-desc">Redesigned by Paul McGinley & Beau Welling. Precision greens, undulating fairways, and strategic bunkering.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Laranjal Course</span>
+                  <span>Par 72 • 6,480 m</span>
+                </div>
+                <p class="course-desc">Set in a former orange grove valley with five independent lakes and immaculate greens conditioning.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <h3>🚗 Logistics & Access</h3>
+            <p style="font-size:0.9rem;margin:0;color:var(--text-muted);">
+              • <strong>Fastest Transfer:</strong> Only 18 km (20 mins) from Faro Airport.<br>
+              • <strong>Accommodation Options:</strong> The Magnolia Hotel (retro-chic, lively sports bar) or luxury self-catering golf villas.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-block">
+            <h3>🥘 Food & Authenticity</h3>
+            <div class="food-box">
+              <strong>Premium Estate Dining</strong>
+              • <em>Casa Velha:</em> Historic fine-dining estate house founded in 1972 serving heritage Portuguese recipes.<br>
+              • <em>Casa do Lago:</em> Lakeside restaurant specializing in fresh local oysters, turbot, and Portuguese vinho verde.
+            </div>
+            <div class="food-box" style="background:var(--tag-bg);border-color:var(--border);">
+              <strong style="color:var(--text-main);">Local Towns (Almancil & Quarteira — 8 mins)</strong>
+              • <strong>Authentic Piri-Piri:</strong> The surrounding Almancil & Guia area is the birthplace of charcoal-grilled Piri-Piri chicken.<br>
+              • <strong>Quarteira Fish Market:</strong> Authentic working harbour taverns serving grilled sea bass, sardines, and local Algarve wines at genuine local prices.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <a href="https://www.quintadolago.com" target="_blank" rel="noopener" class="btn btn-primary">Visit Official Resort Website ↗</a>
+        <a href="https://www.google.com/maps/search/Quinta+do+Lago+Almancil" target="_blank" rel="noopener" class="btn btn-secondary">Open in Google Maps 📍</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resort 4: La Manga Club -->
+  <div class="resort-card" id="la-manga">
+    <div class="resort-hero">
+      <img src="https://images.unsplash.com/photo-1565992441121-4367c2967103?auto=format&fit=crop&w=1400&q=80" alt="La Manga Club Golf">
+      <div class="resort-hero-overlay">
+        <div class="resort-title-row">
+          <div>
+            <h2>4. La Manga Club</h2>
+            <div class="resort-loc">Murcia / Costa Cálida, Spain</div>
+          </div>
+          <div class="price-tag">
+            £490 – £610
+            <small>per person (3N + 3 rounds)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="resort-body">
+      <div class="resort-meta-bar">
+        <div class="meta-chip">✈️ <strong>Alicante (ALC)</strong> (60 mins) or RMU (30 mins)</div>
+        <div class="meta-chip">☀️ <strong>March Weather:</strong> 20.2°C high / 9.8°C low (Only 2 rain days)</div>
+        <div class="meta-chip">⛳ <strong>Golf:</strong> 3 Championship 18-Hole Courses (54 Holes)</div>
+        <div class="meta-chip">🏨 <strong>Hotel:</strong> Grand Hyatt 5* & Las Lomas Apartments</div>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="section-block">
+            <h3>⛳ 3 Championship 18-Hole Courses</h3>
+            <div class="course-list">
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>South Course</span>
+                  <span>Par 73 • 6,499 m</span>
+                </div>
+                <p class="course-desc">5-time Spanish Open host. Long, challenging parkland with palm-lined fairways, deep bunkers, and a famous water-guarded 18th hole.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>North Course</span>
+                  <span>Par 71 • 5,752 m</span>
+                </div>
+                <p class="course-desc">Shorter and undulating with natural ravines (barrancas) intersecting the holes. Requires precision and shot shaping.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>West Course</span>
+                  <span>Par 72 • 5,971 m</span>
+                </div>
+                <p class="course-desc">Carved into pine-covered hills with dramatic elevation changes, blind tee shots, and mountain scenery.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <h3>🚗 Logistics & Access</h3>
+            <p style="font-size:0.9rem;margin:0;color:var(--text-muted);">
+              • <strong>Direct Luton Flights:</strong> Multiple daily flights from LTN to Alicante (ALC) via easyJet and Ryanair (approx 2h 35m).<br>
+              • <strong>Airport Transfer:</strong> 105 km (60 mins) down the modern AP-7 / RM-12 motorways.<br>
+              • <strong>Weather Guarantee:</strong> Murcia has the warmest and driest March climate in mainland Europe.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-block">
+            <h3>🥘 Food & Authenticity</h3>
+            <div class="food-box">
+              <strong>Cliff-Edge Seafood & Murcian Flavours</strong>
+              • <em>La Cala Restaurant:</em> Set directly on a cliff edge above a secluded Mediterranean cove, serving freshly caught local fish and paella.<br>
+              • <em>Amapola:</em> Signature Murcian gastronomy and local Jumilla wines.
+            </div>
+            <div class="food-box" style="background:var(--tag-bg);border-color:var(--border);">
+              <strong style="color:var(--text-main);">Cabo de Palos & Los Belones (5–10 mins)</strong>
+              • <strong>Cabo de Palos Harbour:</strong> Traditional fishing village famous for <em>Caldero Murciano</em> (rich slow-cooked rockfish and rice stew served with homemade alioli).<br>
+              • <strong>Los Belones:</strong> Bustling Spanish village with authentic tapas bars, local charcuterie, and friendly tavern atmosphere.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <a href="https://lamangaclub.com" target="_blank" rel="noopener" class="btn btn-primary">Visit Official Resort Website ↗</a>
+        <a href="https://www.google.com/maps/search/La+Manga+Club+Resort" target="_blank" rel="noopener" class="btn btn-secondary">Open in Google Maps 📍</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resort 5: Praia D'El Rey & West Cliffs -->
+  <div class="resort-card" id="praia-del-rey">
+    <div class="resort-hero">
+      <img src="https://images.unsplash.com/photo-1530053969600-caed2596d242?auto=format&fit=crop&w=1400&q=80" alt="Praia D'El Rey & West Cliffs">
+      <div class="resort-hero-overlay">
+        <div class="resort-title-row">
+          <div>
+            <h2>5. Praia D'El Rey & West Cliffs</h2>
+            <div class="resort-loc">Silver Coast / Óbidos, Portugal</div>
+          </div>
+          <div class="price-tag">
+            £480 – £590
+            <small>per person (3N + 3 rounds)</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="resort-body">
+      <div class="resort-meta-bar">
+        <div class="meta-chip">✈️ <strong>Lisbon (LIS)</strong> (55 mins drive)</div>
+        <div class="meta-chip">☀️ <strong>March Weather:</strong> 17.8°C high / 10.1°C low (7.0 hrs sun)</div>
+        <div class="meta-chip">⛳ <strong>Golf:</strong> 2 World Top-100 Coastal Courses (36 Holes)</div>
+        <div class="meta-chip">🏨 <strong>Hotel:</strong> Marriott 5* Oceanfront & Golf Village</div>
+      </div>
+
+      <div class="grid-2col">
+        <div>
+          <div class="section-block">
+            <h3>⛳ 2 World-Class Coastal Courses</h3>
+            <div class="course-list">
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>West Cliffs Golf Links</span>
+                  <span>Par 72 • 6,382 m</span>
+                </div>
+                <p class="course-desc">Designed by Cynthia Dye. Ranked among the top 15 courses in continental Europe. Rolling coastal dunes, native scrub, and sweeping ocean views on all 18 holes.</p>
+              </div>
+              <div class="course-item">
+                <div class="course-item-header">
+                  <span>Praia D'El Rey Golf Course</span>
+                  <span>Par 73 • 6,423 m</span>
+                </div>
+                <p class="course-desc">Designed by Cabell B. Robinson. A brilliant blend of front-9 pine forest parkland and a breathtaking back-9 playing directly along the Atlantic cliffs.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-block">
+            <h3>🚗 Logistics & Access</h3>
+            <p style="font-size:0.9rem;margin:0;color:var(--text-muted);">
+              • <strong>Direct Luton Flights:</strong> easyJet & Ryanair fly LTN ⇄ Lisbon (LIS) daily (approx 2h 40m).<br>
+              • <strong>Airport Transfer:</strong> 85 km (55 mins) north on the easy A8 motorway.<br>
+              • <strong>Atmosphere:</strong> Rugged, dramatic coastal scenery and authentic medieval Portugal.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-block">
+            <h3>🥘 Food & Authenticity</h3>
+            <div class="food-box">
+              <strong>Fresh Silver Coast Cuisine</strong>
+              • <em>Maré Restaurant:</em> Overlooking the Atlantic beach, serving grilled turbot, spider crab, and clams.<br>
+              • <em>Emprata:</em> Regional Portuguese cuisine paired with local Óbidos and Bairrada wines.
+            </div>
+            <div class="food-box" style="background:var(--tag-bg);border-color:var(--border);">
+              <strong style="color:var(--text-main);">Óbidos & Peniche (15 mins away)</strong>
+              • <strong>Óbidos (15 mins):</strong> Medieval walled fortress village with authentic cobbled taverns, roast suckling pig, and cherry liqueur (<em>Ginjinha</em>) served in chocolate cups.<br>
+              • <strong>Peniche (15 mins):</strong> Portugal's premier fishing port; working harbour restaurants with world-class seafood stew (<em>Caldeirada</em>) and grilled sea bass.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <a href="https://praia-del-rey.com" target="_blank" rel="noopener" class="btn btn-primary">Visit Official Resort Website ↗</a>
+        <a href="https://www.google.com/maps/search/Praia+D'El+Rey+Marriott+Golf+Beach+Resort" target="_blank" rel="noopener" class="btn btn-secondary">Open in Google Maps 📍</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Sharing & Next Steps Box -->
+  <div style="background:var(--tag-bg);border:1px solid var(--border);border-radius:16px;padding:2rem;text-align:center;margin-top:4rem;">
+    <h3 style="margin-top:0;font-size:1.4rem;">Ready to discuss with the group?</h3>
+    <p style="color:var(--text-muted);max-width:600px;margin:0.5rem auto 1.5rem;">
+      Share this link in <strong>"Give neil a rest from arranging stuff"</strong> to get everyone's top 2 preferences and lock in dates for March 2027.
+    </p>
+    <a href="whatsapp://send?text=Killigrew%20Golf%20Tour%20March%202027%20Shortlist:%20https://dibster.github.io/reports/golf-tour.html" class="btn btn-primary" style="font-size:1rem;padding:0.8rem 1.8rem;">
+      📲 Share to WhatsApp Group
+    </a>
+  </div>
+
+  <footer>
+    Killigrew Dad's European Golf Tour &bull; March 2027 Planning Shortlist &bull; Updated August 2026
+  </footer>
+
+</div>
+
+</body>
+</html>
