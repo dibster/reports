@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Île de Ré — Dog Walks & Beach Access Guide (September 2026)</title>
+<style>
+  :root {
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --primary: #0284c7;
+    --primary-light: #e0f2fe;
+    --primary-dark: #0369a1;
+    --accent: #16a34a;
+    --accent-light: #dcfce7;
+    --accent-dark: #15803d;
+    --warning: #d97706;
+    --warning-light: #fef3c7;
+    --warning-dark: #b45309;
+    --danger: #dc2626;
+    --danger-light: #fee2e2;
+    --danger-dark: #991b1b;
+    --tag-bg: #f1f5f9;
+    --tag-text: #334155;
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0b1320;
+      --card-bg: #152238;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: #243552;
+      --primary: #38bdf8;
+      --primary-light: #082f49;
+      --primary-dark: #7dd3fc;
+      --accent: #22c55e;
+      --accent-light: #052e16;
+      --accent-dark: #86efac;
+      --warning: #f59e0b;
+      --warning-light: #451a03;
+      --warning-dark: #fde68a;
+      --danger: #ef4444;
+      --danger-light: #450a0a;
+      --danger-dark: #fca5a5;
+      --tag-bg: #1e293b;
+      --tag-text: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.6);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 5rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.25rem;
+  }
+
+  .badge-top {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    margin: 0 0 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 720px;
+    margin: 0 auto 1.25rem;
+  }
+
+  .meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.85rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .pill strong {
+    color: var(--text-main);
+  }
+
+  /* Filter navigation */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .filter-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.5rem 1.15rem;
+    border-radius: 9999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .filter-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+  }
+
+  /* Cards Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+    line-height: 1.3;
+  }
+
+  .status-tag {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .tag-green { background: var(--accent-light); color: var(--accent-dark); }
+  .tag-blue { background: var(--primary-light); color: var(--primary-dark); }
+  .tag-amber { background: var(--warning-light); color: var(--warning-dark); }
+  .tag-red { background: var(--danger-light); color: var(--danger-dark); }
+
+  .drive-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+    font-weight: 500;
+  }
+
+  .card-desc {
+    font-size: 0.95rem;
+    color: var(--text-main);
+    margin: 0 0 1rem;
+    flex-grow: 1;
+  }
+
+  .card-points {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    font-size: 0.88rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .card-points li {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .card-points li strong {
+    color: var(--text-main);
+  }
+
+  .suitability-box {
+    background: var(--tag-bg);
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    border-left: 3px solid var(--primary);
+  }
+
+  .suitability-box strong {
+    color: var(--text-main);
+  }
+
+  .maps-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 100%;
+    padding: 0.6rem 1rem;
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .maps-link:hover {
+    background: var(--primary);
+    color: #ffffff;
+  }
+
+  /* Table section */
+  .section-box {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+
+  th, td {
+    padding: 0.75rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    background: var(--tag-bg);
+    font-weight: 700;
+    color: var(--text-main);
+  }
+
+  /* Tips grid */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .tips-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .tip-card {
+    background: var(--tag-bg);
+    border-radius: 8px;
+    padding: 1rem;
+    border-left: 4px solid var(--warning);
+  }
+
+  .tip-card.danger {
+    border-left-color: var(--danger);
+  }
+
+  .tip-card h4 {
+    margin: 0 0 0.35rem;
+    font-size: 0.95rem;
+    color: var(--text-main);
+  }
+
+  .tip-card p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  footer {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 3rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <span class="badge-top">Île de Ré · September 2026</span>
+    <h1>Dog Walks & Beach Access</h1>
+    <p class="subtitle">Verified September dog walks, municipal beach by-laws, and terrain guide tailored for Brody (Rhodesian Ridgeback, ~38 kg) & Ivy (Dachshund).</p>
+    
+    <div class="meta-pills">
+      <div class="pill">📍 Base: <strong>Villa Vauban, Saint-Martin</strong></div>
+      <div class="pill">🗓️ Month: <strong>September 2026</strong></div>
+      <div class="pill">🐕 Dogs: <strong>Brody &amp; Ivy</strong></div>
+      <div class="pill">🛡️ Municipal status: <strong>Checked 7 Sep 2026</strong></div>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterCards('all')">All Walks (6)</button>
+      <button class="filter-btn" onclick="filterCards('doorstep')">Doorstep (No Drive)</button>
+      <button class="filter-btn" onclick="filterCards('beach')">Beaches (Allowed in Sept)</button>
+      <button class="filter-btn" onclick="filterCards('forest')">Shaded Woods</button>
+      <button class="filter-btn" onclick="filterCards('marshes')">Salt Marshes</button>
+    </div>
+  </header>
+
+  <div class="grid" id="walksGrid">
+    
+    <!-- Walk 1 -->
+    <div class="card" data-category="doorstep">
+      <div class="card-header">
+        <h2 class="card-title">Vauban Ramparts &amp; Port Loop</h2>
+        <span class="status-tag tag-green">Zero Driving</span>
+      </div>
+      <div class="drive-time">🚶 Direct from Villa Vauban (Venelle de Clerjotte)</div>
+      <p class="card-desc">Walk directly out onto the star-shaped UNESCO ramparts and through Parc de la Barbette. Follow the wide, flat grassy outer moats and glacis overlooking the Pertuis Breton ocean out to the Citadel, then loop around the historic harbour.</p>
+      
+      <div class="suitability-box">
+        <strong>Brody &amp; Ivy Fit:</strong> Soft grassy moats are gentle on paws and flat for Ivy. Plenty of space and fresh ocean breezes for Brody on a lead. Finishes at dog-friendly harbour café terraces.
+      </div>
+
+      <ul class="card-points">
+        <li><span>📏</span> <strong>Distance / Time:</strong> ~3–5 km / 45–60 min loop</li>
+        <li><span>📜</span> <strong>Rules:</strong> Dogs allowed on lead across all ramparts, glacis, port, and parks.</li>
+        <li><span>⚠️</span> <strong>Note:</strong> Plage de la Cible (town beach) bans dogs, but the coastal path running above it is open.</li>
+      </ul>
+      <a class="maps-link" href="https://maps.google.com/?q=Parc+de+la+Barbette+Saint-Martin-de-Ré" target="_blank" rel="noopener">Open Starting Point on Google Maps →</a>
+    </div>
+
+    <!-- Walk 2 -->
+    <div class="card" data-category="beach">
+      <div class="card-header">
+        <h2 class="card-title">Plage des Gouillauds</h2>
+        <span class="status-tag tag-green">Open All Day</span>
+      </div>
+      <div class="drive-time">🚗 ~10 min drive south (Le Bois-Plage-en-Ré)</div>
+      <p class="card-desc">The primary authorized dog beach on the south coast, located between Les Grenettes and Gros Jonc. Access via <em>Pas d'Antioche</em> (near Camping Antioche) or <em>Chemin des Gouillauds</em>.</p>
+      
+      <div class="suitability-box">
+        <strong>Brody &amp; Ivy Fit:</strong> Unrestricted wide Atlantic sands where Brody can properly stretch his legs. Great firm sand at low tide for easy Dachshund trotting.
+      </div>
+
+      <ul class="card-points">
+        <li><span>📜</span> <strong>September Rules:</strong> Explicitly permitted on lead all year, including during summer and September (unlike Gros Jonc which bans dogs until 15 Sept).</li>
+        <li><span>🌊</span> <strong>Terrain:</strong> Open ocean beach, sand dunes, and rolling Atlantic surf.</li>
+      </ul>
+      <a class="maps-link" href="https://maps.google.com/?q=Plage+des+Gouillauds+Le+Bois-Plage-en-Ré" target="_blank" rel="noopener">Open Gouillauds Access on Google Maps →</a>
+    </div>
+
+    <!-- Walk 3 -->
+    <div class="card" data-category="beach">
+      <div class="card-header">
+        <h2 class="card-title">Ars-en-Ré Wild Beaches</h2>
+        <span class="status-tag tag-blue">Restrictions Lifted 1 Sept</span>
+      </div>
+      <div class="drive-time">🚗 ~15–20 min drive west</div>
+      <p class="card-desc">Summer restrictions lifted on 1 September across the municipality's wilder beaches: <strong>Plage du Martray</strong>, <strong>Plage de la Marielle</strong>, <strong>Pointe de Grignon</strong>, and <strong>Radia</strong>.</p>
+      
+      <div class="suitability-box">
+        <strong>Brody &amp; Ivy Fit:</strong> Quiet and peaceful with low visitor counts in September. Watch paws around rocky low-tide patches.
+      </div>
+
+      <ul class="card-points">
+        <li><span>📜</span> <strong>September Rules:</strong> Legally authorized on lead 1 September through 30 June. (Plage de la Grange reopens 1 Oct).</li>
+        <li><span>🌊</span> <strong>Terrain:</strong> Natural wild beaches, rocky intertidal foreshore (<em>estran</em>), and salt marsh edges.</li>
+      </ul>
+      <a class="maps-link" href="https://maps.google.com/?q=Pointe+de+Grignon+Ars-en-Ré" target="_blank" rel="noopener">Open Pointe de Grignon on Google Maps →</a>
+    </div>
+
+    <!-- Walk 4 -->
+    <div class="card" data-category="beach">
+      <div class="card-header">
+        <h2 class="card-title">Plage de la Conche des Baleines</h2>
+        <span class="status-tag tag-amber">19:00 – 09:00 Allowed</span>
+      </div>
+      <div class="drive-time">🚗 ~25 min drive northwest (Saint-Clément-des-Baleines)</div>
+      <p class="card-desc">The island's most dramatic curved Atlantic beach, stretching for kilometres backed by high dunes. During the summer period (until 15 September), dogs are welcomed during evening and early morning hours.</p>
+      
+      <div class="suitability-box">
+        <strong>Brody &amp; Ivy Fit:</strong> Unbeatable for an evening sunset run or crisp early morning walk when the entire bay is virtually deserted.
+      </div>
+
+      <ul class="card-points">
+        <li><span>⏰</span> <strong>Permitted Hours:</strong> 19:00 to 09:00 daily (until 15 Sept). Banned 09:00–19:00.</li>
+        <li><span>💡</span> <strong>Tip:</strong> Park near Phare des Baleines or Pas de Zanuck for direct dune path access.</li>
+      </ul>
+      <a class="maps-link" href="https://maps.google.com/?q=Plage+de+la+Conche+des+Baleines" target="_blank" rel="noopener">Open Conche des Baleines on Google Maps →</a>
+    </div>
+
+    <!-- Walk 5 -->
+    <div class="card" data-category="forest">
+      <div class="card-header">
+        <h2 class="card-title">Bois de Trousse-Chemise &amp; Lizay</h2>
+        <span class="status-tag tag-green">Full Canopy Shade</span>
+      </div>
+      <div class="drive-time">🚗 ~25–30 min drive north (Les Portes-en-Ré)</div>
+      <p class="card-desc">Shaded maritime pine and holm oak woods on the northern tip. Soft needle-covered sandy paths lead through the forest to the coast overlooking the famous <em>Banc du Bûcheron</em> sandbank.</p>
+      
+      <div class="suitability-box">
+        <strong>Brody &amp; Ivy Fit:</strong> The best warm-weather walk on the island. Complete sun protection, zero hot tarmac, and soft ground that is very easy on Ivy's legs.
+      </div>
+
+      <ul class="card-points">
+        <li><span>🌲</span> <strong>Terrain:</strong> Shaded sand/needle tracks, gentle dunes, coastal pine forest.</li>
+        <li><span>🌊</span> <strong>Banc du Bûcheron:</strong> At low tide, a 4 km sandbank emerges opposite the beach. Watch incoming tides as currents are strong.</li>
+        <li><span>⛔</span> <strong>CRITICAL WARNING:</strong> Strictly avoid the adjoining <strong>Réserve Naturelle de Lilleau des Niges</strong> (dogs 100% prohibited year-round).</li>
+      </ul>
+      <a class="maps-link" href="https://maps.google.com/?q=Bois+de+Trousse+Chemise+Les+Portes-en-Ré" target="_blank" rel="noopener">Open Trousse-Chemise Woods on Google Maps →</a>
+    </div>
+
+    <!-- Walk 6 -->
+    <div class="card" data-category="marshes">
+      <div class="card-header">
+        <h2 class="card-title">Presqu'île de Loix Salt Dikes</h2>
+        <span class="status-tag tag-blue">Dead Flat &amp; Scenic</span>
+      </div>
+      <div class="drive-time">🚗 ~15 min drive northwest (Loix)</div>
+      <p class="card-desc">Walk along the raised earth and gravel dikes (<em>digues</em>) separating active salt pans (<em>marais salants</em>), oyster basins, and the ocean. Peaceful birdlife with herons, egrets, and avocets.</p>
+      
+      <div class="suitability-box">
+        <strong>Brody &amp; Ivy Fit:</strong> Dead flat walking with no climbs. Walking the pedestrian dikes keeps you clear of the busy paved cycle routes.
+      </div>
+
+      <ul class="card-points">
+        <li><span>📏</span> <strong>Distance:</strong> Flexible loops from 2 km to 7 km.</li>
+        <li><span>📜</span> <strong>Rules:</strong> Must remain on lead at all times to protect nesting and feeding birds.</li>
+        <li><span>☀️</span> <strong>Caution:</strong> Zero shade across the salt pans—walk early morning or late afternoon to avoid direct heat.</li>
+      </ul>
+      <a class="maps-link" href="https://maps.google.com/?q=Moulin+à+marée+Loix" target="_blank" rel="noopener">Open Loix Tide Mill on Google Maps →</a>
+    </div>
+
+  </div>
+
+  <!-- Summary Table -->
+  <div class="section-box">
+    <h3 class="section-title">📋 Village-by-Village Beach Rules in September</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Village</th>
+            <th>September Dog Policy</th>
+            <th>Notes &amp; Access</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Saint-Martin-de-Ré</strong></td>
+            <td><span class="status-tag tag-red">Beaches Banned</span> <span class="status-tag tag-green">Ramparts Open</span></td>
+            <td>Plage de la Cible bans dogs year-round. Ramparts, port &amp; glacis paths 100% open on lead.</td>
+          </tr>
+          <tr>
+            <td><strong>Le Bois-Plage-en-Ré</strong></td>
+            <td><span class="status-tag tag-green">Plage des Gouillauds Open</span></td>
+            <td>Allowed on lead all year on Plage des Gouillauds. Gros Jonc to Petit Sergent banned until 15 Sept.</td>
+          </tr>
+          <tr>
+            <td><strong>Ars-en-Ré</strong></td>
+            <td><span class="status-tag tag-green">Allowed from 1 Sept</span></td>
+            <td>Summer ban lifted 1 Sept on Martray, Marielle, Pointe de Grignon, and Radia. (La Grange opens 1 Oct).</td>
+          </tr>
+          <tr>
+            <td><strong>Saint-Clément-des-Baleines</strong></td>
+            <td><span class="status-tag tag-amber">19:00 – 09:00 Allowed</span></td>
+            <td>Conche des Baleines &amp; Côte Sauvage open evening &amp; early morning until 15 Sept.</td>
+          </tr>
+          <tr>
+            <td><strong>Les Portes-en-Ré</strong></td>
+            <td><span class="status-tag tag-amber">20:00 – 09:00 Allowed</span></td>
+            <td>Beaches banned 09:00–20:00 until 30 Sept. Forest trails (Trousse-Chemise) open all day.</td>
+          </tr>
+          <tr>
+            <td><strong>Rivedoux-Plage</strong></td>
+            <td><span class="status-tag tag-amber">20:00 – 10:00 Allowed</span></td>
+            <td>Tolerated on lead overnight/morning on Plage du Défend and Plage Nord (except Promenade Théodore Porsain).</td>
+          </tr>
+          <tr>
+            <td><strong>La Flotte / Loix</strong></td>
+            <td><span class="status-tag tag-red">Banned Year-Round</span></td>
+            <td>All municipal bathing beaches prohibited. Salt dikes &amp; coastal paths open on lead.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Safety Advice -->
+  <div class="section-box">
+    <h3 class="section-title">⚠️ Essential Paw &amp; Island Safety</h3>
+    <div class="tips-grid">
+      <div class="tip-card danger">
+        <h4>Oyster Shells &amp; Foreshore Rocks</h4>
+        <p>The rocky seabed (<em>estran</em>) exposed at low tide is covered in razor-sharp wild oysters and barnacles. Keep Brody on sandy paths to avoid slicing paw pads.</p>
+      </div>
+      <div class="tip-card">
+        <h4>Zero Fresh Water on Trails</h4>
+        <p>No streams exist on the island. Between salt spray, sea breezes, and sand, both dogs dehydrate fast. Carry a bottle and travel bowl on every walk.</p>
+      </div>
+      <div class="tip-card">
+        <h4>High-Speed Cycleways</h4>
+        <p>Over 110 km of cycleways crisscross the island. Silent electric bikes move quickly around blind bends. Keep leashes short when crossing or walking shared paths.</p>
+      </div>
+      <div class="tip-card danger">
+        <h4>Lilleau des Niges Nature Reserve</h4>
+        <p>Strictly no dogs permitted year-round (even carried or in bags) within the national bird sanctuary at Les Portes-en-Ré. Fines are strictly enforced.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Published for David &amp; Claire Ashenhurst · Private Report · Hosted on GitHub Pages</p>
+  </footer>
+</div>
+
+<script>
+function filterCards(category) {
+  const buttons = document.querySelectorAll('.filter-btn');
+  buttons.forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    if (category === 'all' || card.getAttribute('data-category') === category) {
+      card.style.display = 'flex';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
