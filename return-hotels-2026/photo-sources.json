@@ -1,0 +1,56 @@
+[
+  {
+    "hotel": "Auberge du Bon Laboureur",
+    "file": "photos/bon-laboureur-exterior.jpg",
+    "source_page": "https://www.bonlaboureur.com/",
+    "image_url": "https://hapi.mmcreation.com/hapidam/cc203c59-a5b0-4ebc-8b6a-a432b92d9305/auberge-du-bon-laboureur-manoir-002.jpg?size=lg",
+    "caption": "Sunny courtyard terrace beside the manor building",
+    "verified_on": "2026-09-15",
+    "verification": "Downloaded from image URL present in official homepage HTML; image content visually inspected."
+  },
+  {
+    "hotel": "Auberge du Bon Laboureur",
+    "file": "photos/bon-laboureur-dining.jpg",
+    "source_page": "https://www.bonlaboureur.com/",
+    "image_url": "https://hapi.mmcreation.com/hapidam/29b41d20-a2d6-4aae-808a-450695401694/auberge-du-bon-laboureur-restauration-003.jpg?size=lg",
+    "caption": "Restaurant tables beside tall windows",
+    "verified_on": "2026-09-15",
+    "verification": "Downloaded from image URL present in official homepage HTML; image content visually inspected."
+  },
+  {
+    "hotel": "Château de Rochecotte",
+    "file": "photos/rochecotte-exterior.webp",
+    "source_page": "https://www.chateau-de-rochecotte.com/",
+    "image_url": "https://www.chateau-de-rochecotte.com/wp-content/uploads/2026/01/hotel-de-reve-a-proximite-des-chateaux-de-la-loire-tourisme-tours-1920x1080.webp",
+    "caption": "Château and wooded grounds, viewed from above",
+    "verified_on": "2026-09-15",
+    "verification": "Downloaded from image URL present in official homepage HTML; image content visually inspected."
+  },
+  {
+    "hotel": "Château de Rochecotte",
+    "file": "photos/rochecotte-dining.jpg",
+    "source_page": "https://www.chateau-de-rochecotte.com/",
+    "image_url": "https://www.chateau-de-rochecotte.com/wp-content/uploads/2025/08/Chateau-de-Rochecotte-HD-3-1280x720.jpg",
+    "caption": "Formal dining room with tall windows and gilded details",
+    "verified_on": "2026-09-15",
+    "verification": "Downloaded from image URL present in official homepage HTML; image content visually inspected."
+  },
+  {
+    "hotel": "Grand Hôtel de Solesmes",
+    "file": "photos/solesmes-exterior.webp",
+    "source_page": "https://www.grandhotelsolesmes.com/",
+    "image_url": "https://www.grandhotelsolesmes.com/wp-content/uploads/meilleure-photo-de-facade-solesmes-992x0.webp",
+    "caption": "Hotel facade with flower boxes and planting",
+    "verified_on": "2026-09-15",
+    "verification": "Downloaded from image URL present in official homepage HTML; image content visually inspected."
+  },
+  {
+    "hotel": "Grand Hôtel de Solesmes",
+    "file": "photos/solesmes-dining.webp",
+    "source_page": "https://www.grandhotelsolesmes.com/",
+    "image_url": "https://www.grandhotelsolesmes.com/wp-content/uploads/mg_7547_pt-992x0.webp",
+    "caption": "Dining room overlooking the garden",
+    "verified_on": "2026-09-15",
+    "verification": "Downloaded from image URL present in official homepage HTML; image content visually inspected."
+  }
+]
