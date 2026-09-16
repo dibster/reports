@@ -6,3 +6,4 @@
 .overview-map a:hover text{fill:#9b5139;text-decoration:underline}
 @media(max-width:620px){.hero-side>p:last-child{grid-column:2}.masthead span{max-width:165px;text-align:right}.climate-row{grid-template-columns:105px 1fr 47px}.axis{margin-left:113px;margin-right:55px}}
 .track:after{top:0}
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;margin-bottom:24px}.gallery .photo{margin:0}.gallery .photo img{height:260px;max-height:320px;object-fit:contain;background:#e3e9e1}.gallery .photo:only-child{grid-column:1/-1}.gallery .photo:only-child img{height:auto;max-height:390px}.gallery figcaption{overflow-wrap:anywhere}@media(max-width:620px){.gallery{grid-template-columns:1fr}.gallery .photo img{height:auto;max-height:340px;object-fit:contain}}
