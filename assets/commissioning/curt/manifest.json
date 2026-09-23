@@ -1,0 +1,196 @@
+{
+  "environment": "patagoniadev",
+  "factory_id": "https://qr.patagonia.com/loc/604655",
+  "factory_name": "Binh Thuan Nha Be Garment Joint Stock Company",
+  "date": "2026-09-23",
+  "purchase_orders": [
+    {
+      "name": "TEST-CURT-EAN-20260923",
+      "id": "af9153b9-4478-5426-ae38-25b2e41cf434",
+      "line_id": "e44e902b-0336-5698-9a5a-a3d568476256",
+      "reservation_id": "a67c3c53-e556-58ab-87f0-65a3e2bc617f",
+      "urn": "urn:epcglobal:cbv:bt:0715353000002:TEST-CURT-EAN-20260923",
+      "mode": "EAN",
+      "configuration_id": "SMP",
+      "gtin": "00196924404090",
+      "product_id": "/01/00196924404090",
+      "quantity": 10,
+      "labels": [
+        {
+          "label": "EAN-01",
+          "id": "6a713e92-5cc9-4832-b7c0-2b79f7adb67e",
+          "code": "3290YMLAVHDD68Q",
+          "fabric": "https://qr.patagonia.dev/3290YMLAVHDD68Q",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-02",
+          "id": "6a715ae7-7328-4721-a596-1d3e0118d782",
+          "code": "5TLDK565A82804I",
+          "fabric": "https://qr.patagonia.dev/5TLDK565A82804I",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-03",
+          "id": "6a716e19-862e-4a48-8f69-faba3881928f",
+          "code": "6RAXKZB4F5RVV6D",
+          "fabric": "https://qr.patagonia.dev/6RAXKZB4F5RVV6D",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-04",
+          "id": "6a716434-da39-4ee8-9764-170428fea522",
+          "code": "AAJOKS56APWZ68Q",
+          "fabric": "https://qr.patagonia.dev/AAJOKS56APWZ68Q",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-05",
+          "id": "6a713f70-8d7e-4692-be40-0c8aa0e7c18d",
+          "code": "AU19QMMWLVZRLZ8",
+          "fabric": "https://qr.patagonia.dev/AU19QMMWLVZRLZ8",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-06",
+          "id": "6a71431e-1457-4045-b3e8-be11a4a71914",
+          "code": "RD67IGW9KOJ37LO",
+          "fabric": "https://qr.patagonia.dev/RD67IGW9KOJ37LO",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-07",
+          "id": "6a716d24-9ae9-495f-bcb6-33499da1fd0b",
+          "code": "W427JHVVKB4SKLF",
+          "fabric": "https://qr.patagonia.dev/W427JHVVKB4SKLF",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-08",
+          "id": "6a715491-ea14-462c-9493-e05397376f7f",
+          "code": "YBA0ACLQL2YXBTD",
+          "fabric": "https://qr.patagonia.dev/YBA0ACLQL2YXBTD",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-09",
+          "id": "6a7164a0-e158-4976-b98e-0c7064ff1e7d",
+          "code": "Z5X70X978I7NYQ5",
+          "fabric": "https://qr.patagonia.dev/Z5X70X978I7NYQ5",
+          "hangtag": "0196924404090"
+        },
+        {
+          "label": "EAN-10",
+          "id": "6a713a16-2af4-46af-ae12-65eb11e50180",
+          "code": "ZCTP0QJASC1V2YM",
+          "fabric": "https://qr.patagonia.dev/ZCTP0QJASC1V2YM",
+          "hangtag": "0196924404090"
+        }
+      ],
+      "product_name": "Men's M10 Storm Pants / SMDB / XXL"
+    },
+    {
+      "name": "TEST-CURT-SGTIN-20260923",
+      "id": "c1a2e4d3-0835-5949-a606-50254a126c92",
+      "line_id": "9ad8975e-b328-5927-92ca-295136c10bfe",
+      "reservation_id": "2ae52de0-893c-5e3c-b936-527af63d2569",
+      "urn": "urn:epcglobal:cbv:bt:0715353000002:TEST-CURT-SGTIN-20260923",
+      "mode": "SGTIN",
+      "configuration_id": "BLK",
+      "gtin": "00190696000207",
+      "product_id": "/01/00190696000207",
+      "quantity": 10,
+      "labels": [
+        {
+          "label": "SGTIN-01",
+          "id": "6a71d84d-99ca-4e63-bdda-439ba2ca4c35",
+          "code": "0ZLPPVWXNO1YORH",
+          "fabric": "https://qr.patagonia.dev/0ZLPPVWXNO1YORH",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S01"
+        },
+        {
+          "label": "SGTIN-02",
+          "id": "6a71a771-a3f7-4b27-9fe4-bca376a603f0",
+          "code": "APPKOBPBRRCP353",
+          "fabric": "https://qr.patagonia.dev/APPKOBPBRRCP353",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S02"
+        },
+        {
+          "label": "SGTIN-03",
+          "id": "6a719c0b-9a27-40f4-9f0e-45197dab993e",
+          "code": "BXBJ5A2Z1TU48SM",
+          "fabric": "https://qr.patagonia.dev/BXBJ5A2Z1TU48SM",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S03"
+        },
+        {
+          "label": "SGTIN-04",
+          "id": "6a71a453-5b9e-4328-a678-d6549a21f1a6",
+          "code": "E4CU0A7T0YHNYOV",
+          "fabric": "https://qr.patagonia.dev/E4CU0A7T0YHNYOV",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S04"
+        },
+        {
+          "label": "SGTIN-05",
+          "id": "6a71acfa-7e0e-4dbb-8df9-01d979317c96",
+          "code": "F4G6I8MN6UY6DID",
+          "fabric": "https://qr.patagonia.dev/F4G6I8MN6UY6DID",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S05"
+        },
+        {
+          "label": "SGTIN-06",
+          "id": "6a719889-1a53-4fc5-bf56-d653849bdb0b",
+          "code": "GS2JTP78T26269H",
+          "fabric": "https://qr.patagonia.dev/GS2JTP78T26269H",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S06"
+        },
+        {
+          "label": "SGTIN-07",
+          "id": "6a71da0c-6972-433e-93cb-269f22ccd551",
+          "code": "MAWX84GOY1FTWI9",
+          "fabric": "https://qr.patagonia.dev/MAWX84GOY1FTWI9",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S07"
+        },
+        {
+          "label": "SGTIN-08",
+          "id": "6a71c62d-90a3-41d5-b1cd-148da83196b8",
+          "code": "Q2WK9OU8TMAQWYI",
+          "fabric": "https://qr.patagonia.dev/Q2WK9OU8TMAQWYI",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S08"
+        },
+        {
+          "label": "SGTIN-09",
+          "id": "6a71df58-5eab-4581-acf7-d57638cdd734",
+          "code": "VAXLAVG3IVRFJDJ",
+          "fabric": "https://qr.patagonia.dev/VAXLAVG3IVRFJDJ",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S09"
+        },
+        {
+          "label": "SGTIN-10",
+          "id": "6a718f41-b7f4-48bf-953c-bd9761f5113a",
+          "code": "ZJIK8V35RMPI9RJ",
+          "fabric": "https://qr.patagonia.dev/ZJIK8V35RMPI9RJ",
+          "hangtag": "https://qr.patagonia.dev/01/00190696000207/21/CURT20260923S10"
+        }
+      ],
+      "product_name": "LW Black Hole Duffel 45L / PBH / ALL"
+    }
+  ],
+  "run_id": "manual-tablet-curt-20260923",
+  "app_version": "0.1.51",
+  "version_code": 51,
+  "baseline_status": "Verified point-in-time baseline; refresh before testing",
+  "negative_inputs": {
+    "wrong_product_ean": "0190696000207",
+    "wrong_product_sgtin": "https://qr.patagonia.dev/01/00196924404090/21/CURT20260923MISMATCH"
+  },
+  "baseline_evidence": {
+    "file": "live-baseline.json",
+    "observed_at": "2026-09-23T16:19:31.446908+00:00",
+    "sha256": "2ae5054dfe299c0479ce447f0062608c05176847f14b83869dace98b07d3afe6",
+    "order_counts": [
+      0,
+      0
+    ],
+    "unbound_fabric_codes": 20
+  }
+}
