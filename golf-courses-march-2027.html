@@ -7,6 +7,7 @@
 <meta name="theme-color" content="#123b31">
 <title>Budens Golf Tour — March 2027 Course Guide</title>
 <meta name="description" content="A practical course shortlist for the March 2027 Budens golf trip, with current handicap checks, indicative green fees and maps.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
   :root {
     color-scheme: light;
@@ -72,6 +73,8 @@
     background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
     display: flex; flex-direction: column; min-width: 0;
   }
+  .course-photo { display: block; width: 100%; height: 205px; object-fit: cover; background: #dfe7d8; }
+  .photo-credit { margin: -9px 0 12px; color: var(--muted); font-size: .72rem; }
   .course-top { padding: 18px 20px 16px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: start; gap: 12px; }
   .number { display: block; color: var(--green-2); font-size: .72rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; margin-bottom: 3px; }
   h3 { margin: 0; font: 500 1.65rem/1.08 Georgia, "Times New Roman", serif; letter-spacing: -.025em; }
@@ -100,6 +103,16 @@
   .steps li:first-child { border-top: 0; }
   .step-no { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--green); color: white; font-size: .74rem; font-weight: 700; }
   .price-note { font-size: .83rem !important; }
+  .map-panel { margin: 28px 0 4px; padding: 20px; border: 1px solid var(--line); border-radius: 16px; background: var(--card); box-shadow: var(--shadow); }
+  .map-panel h2 { margin: 0; font: 500 clamp(1.7rem, 4vw, 2.35rem)/1.1 Georgia, "Times New Roman", serif; }
+  .map-panel p { margin: 8px 0 14px; color: var(--muted); font-size: .9rem; }
+  #course-map { height: 450px; border-radius: 12px; background: #e5eadf; z-index: 0; }
+  .map-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; font-size: .82rem; color: #425249; }
+  .map-pin { display: flex; align-items: center; gap: 7px; }
+  .map-dot { display: inline-grid; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: var(--green); color: white; font-size: .75rem; font-weight: 800; }
+  .map-dot.stay { background: #b47b18; }
+  .map-share { display: inline-block; margin-top: 12px; font-weight: 700; }
+  .masthead .map-share { color: var(--lime); text-decoration-thickness: 1px; text-underline-offset: .2em; }
   .source-list { display: grid; gap: 7px; margin-top: 10px; font-size: .85rem; }
   footer { border-top: 1px solid var(--line); padding: 19px 0 28px; color: var(--muted); font-size: .8rem; }
   footer a { color: inherit; }
@@ -111,6 +124,7 @@
     .section-head { display: block; }
     .section-head p { margin-top: 7px; }
     .cards, .details { grid-template-columns: 1fr; }
+    #course-map { height: 360px; }
     .course-top { padding: 16px 16px 14px; }
     .course-body { padding: 14px 16px 17px; }
     .summary { min-height: 0; }
@@ -131,6 +145,7 @@
       <h1>Pick courses you can actually play.</h1>
       <p class="lead">The group expects to play around a 28 handicap on a good day. We still need everyone’s actual WHS index and certificate status, so this shortlist puts course access before the scenery.</p>
       <div class="tripline" aria-label="Trip details"><span><b>●</b> Staying at Quinta da Encosta Velha</span><span><b>●</b> 8–12 March proposed; 15–19 March also under discussion</span><span><b>●</b> Nothing booked</span></div>
+      <a class="map-share" href="https://dibster.github.io/reports/golf-courses-march-2027.html">Share this golf guide · dibster.github.io/reports/golf-courses-march-2027.html</a>
     </div>
   </div>
 </header>
@@ -139,9 +154,22 @@
     <div class="callout-icon" aria-hidden="true">!</div>
     <div>
       <h2 id="eligibility-title">The handicap check changes the shortlist</h2>
-      <p>First, get each player’s current WHS Handicap Index and confirm they can show a current handicap record. “Around 28 on a good day” is not enough to establish eligibility. Boavista’s published men’s limit is 27; Espiche’s fact sheet says men must be below 28. Santo António’s ordinary visitor limit is still unconfirmed.</p>
+      <p>We’ll use iGolf to get each player’s WHS Handicap Index. It suits golfers who play at different clubs without relying on one home club; the current index and digital record are accessed in the MyEG app. If a player has held an England Golf index before, use the existing membership number so their record carries across. “Around 28 on a good day” is not enough to establish eligibility. Boavista’s published men’s limit is 27; Espiche’s fact sheet says men must be below 28. Santo António’s ordinary visitor limit is still unconfirmed. <a href="https://www.englandgolf.org/igolf-terms-and-conditions" target="_blank" rel="noopener">England Golf iGolf details</a></p>
     </div>
   </aside>
+
+  <section class="map-panel" aria-labelledby="map-title">
+    <h2 id="map-title">Where everything is</h2>
+    <p>Accommodation and course locations in western Algarve. Select a pin for the place link; use each course card below for its driving route and distance.</p>
+    <div id="course-map" role="application" aria-label="Interactive map of the accommodation and shortlisted golf courses"></div>
+    <div class="map-legend" aria-label="Map key">
+      <span class="map-pin"><span class="map-dot stay">S</span> Accommodation</span>
+      <span class="map-pin"><span class="map-dot">1</span> Santo António · 1.8 km / 4 min</span>
+      <span class="map-pin"><span class="map-dot">2</span> Penina · 33.9 km / 34 min</span>
+      <span class="map-pin"><span class="map-dot">3</span> Espiche · 13.8 km / 19 min</span>
+      <span class="map-pin"><span class="map-dot">4</span> Boavista · 13.8 km / 18 min</span>
+    </div>
+  </section>
 
   <div class="section-head">
     <h2>Four courses to weigh up</h2>
@@ -150,10 +178,12 @@
 
   <section class="cards" aria-label="Course shortlist">
     <article class="course">
+      <img class="course-photo" src="assets/golf/santo-antonio.jpg" alt="Santo António golf course beside a water hazard and palm trees" loading="lazy">
       <div class="course-top"><div><span class="number">First call · on the resort</span><h3>Santo António</h3></div><span class="badge">Best location</span></div>
       <div class="course-body">
         <p class="summary">The course at Quinta da Encosta Velha. An 18-hole, hilly test with water and steep slopes; the resort recommends a buggy.</p>
-        <div class="facts"><div class="fact"><strong>Handicap</strong><span>Ordinary visitor rule not found</span></div><div class="fact"><strong>March guide price</strong><span>€73 / person; €309 for 4 + 2 buggies</span></div></div>
+        <p class="photo-credit">Photo: <a href="https://www.saresorts.com/golf.html" target="_blank" rel="noopener">SA Resorts</a></p>
+        <div class="facts"><div class="fact"><strong>Handicap</strong><span>Ordinary visitor rule not found</span></div><div class="fact"><strong>From accommodation</strong><span>Same resort · 1.8 km / 4 min by road to reception</span></div><div class="fact"><strong>March guide price</strong><span>€73 / person; €309 for 4 + 2 buggies</span></div></div>
         <p class="verdict warn">Ask the golf shop whether all four can play a social round, what proof of handicap they need, and whether the €309 buggy offer applies on your date. A tournament’s 28 limit does not prove the ordinary visitor rule.</p>
         <div class="links"><a href="https://www.saresorts.com/golf.html" target="_blank" rel="noopener">Course &amp; contact</a><a href="https://algarvegolf.net/santoantonio/teetimes.htm" target="_blank" rel="noopener">March price listing</a><a class="route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Quinta+da+Encosta+Velha,+Budens&amp;destination=Santo+Antonio+Golf,+Budens&amp;travelmode=driving" target="_blank" rel="noopener">Map</a>
       </div>
@@ -161,10 +191,12 @@
     </article>
 
     <article class="course">
+      <img class="course-photo" src="assets/golf/penina.jpg" alt="Fairway and green at Penina Hotel and Golf Resort" loading="lazy">
       <div class="course-top"><div><span class="number">Safest published access rule</span><h3>Penina Resort</h3></div><span class="badge">No handicap required</span></div>
       <div class="course-body">
         <p class="summary">A full-length nine-hole loop. Play it twice for 18; the yellow-tee circuit is 2,629 metres per nine.</p>
-        <div class="facts"><div class="fact"><strong>Handicap</strong><span>Not required, per the course</span></div><div class="fact"><strong>March guide price</strong><span>About €47 for two loops; €29 for nine</span></div></div>
+        <p class="photo-credit">Photo: <a href="https://www.penina.com/" target="_blank" rel="noopener">Penina Hotel &amp; Golf Resort</a></p>
+        <div class="facts"><div class="fact"><strong>Handicap</strong><span>Not required, per the course</span></div><div class="fact"><strong>From accommodation</strong><span>33.9 km · about 34 min by road</span></div><div class="fact"><strong>March guide price</strong><span>About €47 for two loops; €29 for nine</span></div></div>
         <p class="verdict">Best fallback if an official handicap or certificate blocks another club. It is a longer drive from Budens, so check the route and the group’s appetite for repeating nine holes.</p>
         <div class="links"><a href="https://www.penina.com/golf/golf-courses/resort-course/" target="_blank" rel="noopener">Course rules</a><a href="https://algarvegolf.net/peninaresort/teetimes.htm" target="_blank" rel="noopener">March price listing</a><a class="route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Quinta+da+Encosta+Velha,+Budens&amp;destination=Penina+Resort+Course,+Alvor&amp;travelmode=driving" target="_blank" rel="noopener">Map</a>
       </div>
@@ -172,10 +204,12 @@
     </article>
 
     <article class="course">
+      <img class="course-photo" src="assets/golf/espiche.jpg" alt="Espiche golf course in the Algarve countryside" loading="lazy">
       <div class="course-top"><div><span class="number">Conditional · verify first</span><h3>Espiche</h3></div><span class="badge warn">28 is the edge</span></div>
       <div class="course-body">
         <p class="summary">An 18-hole course set in the countryside near Lagos, with a clubhouse and practice area.</p>
-        <div class="facts"><div class="fact"><strong>Handicap</strong><span>Fact sheet: men &lt;28; ladies &lt;36</span></div><div class="fact"><strong>March guide price</strong><span>About €99 / person; buggy extra</span></div></div>
+        <p class="photo-credit">Photo: <a href="https://www.espichegolf.pt/en/golf/rates/" target="_blank" rel="noopener">Espiche Golf</a></p>
+        <div class="facts"><div class="fact"><strong>Handicap</strong><span>Fact sheet: men &lt;28; ladies &lt;36</span></div><div class="fact"><strong>From accommodation</strong><span>13.8 km · about 19 min by road</span></div><div class="fact"><strong>March guide price</strong><span>About €99 / person; buggy extra</span></div></div>
         <p class="verdict warn">A player on exactly 28 may be outside the stated men’s limit. A golf directory also reports a valid certificate is required; ask Espiche to confirm its current visitor rule and acceptability of each index.</p>
         <div class="links"><a href="https://www.espichegolf.pt/en/golf/rates/" target="_blank" rel="noopener">Official course site</a><a href="https://www.espichegolf.pt/wp-content/uploads/2023/05/Fact-Sheet-ENG.pdf" target="_blank" rel="noopener">Handicap fact sheet</a><a href="https://www.algarvegolfmap.com/courses/espiche/green-fees" target="_blank" rel="noopener">March price listing</a><a class="route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Quinta+da+Encosta+Velha,+Budens&amp;destination=Espiche+Golf,+Lagos&amp;travelmode=driving" target="_blank" rel="noopener">Map</a>
       </div>
@@ -183,10 +217,12 @@
     </article>
 
     <article class="course">
+      <img class="course-photo" src="assets/golf/boavista.jpg" alt="Golf hole at Boavista Golf and Spa Resort" loading="lazy">
       <div class="course-top"><div><span class="number">Hold · not a safe pick at 28</span><h3>Boavista</h3></div><span class="badge stop">Men max 27</span></div>
       <div class="course-body">
         <p class="summary">An 18-hole championship course with hills, water and ravines. The club calls out forced carries on holes 6 and 8.</p>
-        <div class="facts"><div class="fact"><strong>Handicap</strong><span>Men 27 / ladies 34; certificate required</span></div><div class="fact"><strong>March guide price</strong><span>About €107 / person; buggy extra</span></div></div>
+        <p class="photo-credit">Photo: <a href="https://www.boavistaresort.pt/en/Menu/Golf/About-the-Course.aspx" target="_blank" rel="noopener">Boavista Resort</a></p>
+        <div class="facts"><div class="fact"><strong>Handicap</strong><span>Men 27 / ladies 34; certificate required</span></div><div class="fact"><strong>From accommodation</strong><span>13.8 km · about 18 min by road</span></div><div class="fact"><strong>March guide price</strong><span>About €107 / person; buggy extra</span></div></div>
         <p class="verdict stop">Leave it off the working itinerary unless everyone meets the limit with a certificate, or the club confirms an exception. Check the route from the villa before comparing it with the on-resort course.</p>
         <div class="links"><a href="https://www.boavistaresort.pt/en/Menu/Golf/Tariff.aspx" target="_blank" rel="noopener">Official rates &amp; limits</a><a href="https://www.boavistaresort.pt/en/Menu/Golf/About-the-Course.aspx" target="_blank" rel="noopener">Course details</a><a href="https://www.algarvegolfmap.com/courses/boavista/green-fees" target="_blank" rel="noopener">March price listing</a><a class="route" href="https://www.google.com/maps/dir/?api=1&amp;origin=Quinta+da+Encosta+Velha,+Budens&amp;destination=Boavista+Golf,+Lagos&amp;travelmode=driving" target="_blank" rel="noopener">Map</a>
       </div>
@@ -197,7 +233,8 @@
   <section class="details" aria-label="Planning notes">
     <div class="panel">
       <h2>First: collect the handicaps</h2>
-      <p>Get the current WHS Handicap Index for Dave, Neil, Gav and Steven, and confirm each can show a current certificate or digital handicap record. Then compare the exact index with each club’s rule. A score of 28 on a good day does not tell us the official index.</p>
+      <p>Open the MyEG app and note each player’s current iGolf WHS Handicap Index. Save or open the digital handicap record so it is ready to show the clubs. Then compare the exact index with each club’s rule. A score of 28 on a good day does not tell us the official index.</p>
+      <p><a href="https://www.englandgolf.org/igolf-terms-and-conditions" target="_blank" rel="noopener">England Golf: what iGolf provides</a> · <a href="https://www.englandgolf.org/my-england-golf-access" target="_blank" rel="noopener">MyEG app and WHS access</a></p>
       <ol class="steps">
         <li><span class="step-no">1</span><span><strong>Santo António</strong> — ask about ordinary visitor eligibility and buggy requirements; it’s at the accommodation.</span></li>
         <li><span class="step-no">2</span><span><strong>Penina Resort</strong> — clear published access rule; decide between nine holes and two loops.</span></li>
@@ -209,7 +246,7 @@
       <h2>What the prices mean</h2>
       <p>These are online guide prices for March 2027 from golf-booking or price-listing sites. They can change and do not confirm tee-time availability or eligibility.</p>
       <p class="price-note"><strong>Compare like with like:</strong> Santo António’s €73 is a per-player listing; €309 is a separate four-player/two-buggy package. The other per-player figures do not include a buggy. Confirm all prices with the club or booking provider before agreeing the rounds.</p>
-      <p class="price-note">Distance figures are omitted because exact villa-to-club routes have not been checked. Each map link opens directions from Quinta da Encosta Velha.</p>
+      <p class="price-note">Distances and fastest driving routes were checked in Google Maps on 26 September 2026. Times are current route estimates and may change; Santo António is on the same resort, and its reception pin routes to about 1.8 km by road from the accommodation listing. Open the map link on each card for the route.</p>
     </div>
   </section>
 
@@ -218,5 +255,28 @@
     Course and eligibility research checked 26 September 2026. Green fees are indicative March 2027 listings checked the same day. Official rules can change; confirm current requirements directly before booking.
   </footer>
 </main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  const map = L.map('course-map', { scrollWheelZoom: false });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  const locations = [
+    { label: 'S', name: 'Quinta da Encosta Velha · accommodation', distance: 'Starting point', lat: 37.08586, lon: -8.83456, url: 'https://maps.google.com/maps?cid=6424501446057043064', stay: true },
+    { label: '1', name: 'Santo António Golf · clubhouse / reception', distance: '1.8 km · about 4 min by road', lat: 37.08596, lon: -8.83935, url: 'https://maps.google.com/maps?cid=2285747042793415575' },
+    { label: '2', name: 'Penina Resort Course', distance: '33.9 km · about 34 min by road', lat: 37.16130, lon: -8.58042, url: 'https://maps.google.com/maps?cid=11008979357297856993' },
+    { label: '3', name: 'Espiche Golf', distance: '13.8 km · about 19 min by road', lat: 37.12268, lon: -8.75256, url: 'https://maps.google.com/maps?cid=7057233723264992430' },
+    { label: '4', name: 'Boavista Golf & Spa', distance: '13.8 km · about 18 min by road', lat: 37.10155, lon: -8.70451, url: 'https://maps.google.com/maps?cid=14005893533544813205' }
+  ];
+  const bounds = [];
+  locations.forEach((place) => {
+    const icon = L.divIcon({ className: '', html: '<span class="map-dot' + (place.stay ? ' stay' : '') + '">' + place.label + '</span>', iconSize: [28, 28], iconAnchor: [14, 14] });
+    const marker = L.marker([place.lat, place.lon], { icon }).addTo(map);
+    marker.bindPopup('<strong>' + place.name + '</strong><br>' + place.distance + '<br><a href="' + place.url + '" target="_blank" rel="noopener">Open place in Google Maps</a>');
+    bounds.push([place.lat, place.lon]);
+  });
+  map.fitBounds(bounds, { padding: [24, 24] });
+</script>
 </body>
 </html>
