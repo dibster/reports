@@ -112,6 +112,8 @@
   .map-dot { display: inline-grid; width: 24px; height: 24px; place-items: center; border-radius: 50%; background: var(--green); color: white; font-size: .75rem; font-weight: 800; }
   .map-dot.stay { background: #b47b18; }
   .map-share { display: inline-block; margin-top: 12px; font-weight: 700; }
+  .dining-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 28px; }
+  .dining-links a { display: inline-block; border: 1px solid var(--line); border-radius: 999px; background: var(--card); padding: 9px 15px; font-size: .88rem; font-weight: 700; text-decoration: none; }
   .masthead .map-share { color: var(--lime); text-decoration-thickness: 1px; text-underline-offset: .2em; }
   .source-list { display: grid; gap: 7px; margin-top: 10px; font-size: .85rem; }
   footer { border-top: 1px solid var(--line); padding: 19px 0 28px; color: var(--muted); font-size: .8rem; }
@@ -150,6 +152,10 @@
   </div>
 </header>
 <main class="wrap">
+  <nav class="dining-links" aria-label="Restaurant guides">
+    <a href="walkable-restaurants.html">Restaurants on foot from the villa ↗</a>
+    <a href="restaurant-drives.html">Food-first restaurant shortlist by car ↗</a>
+  </nav>
   <aside class="callout" aria-labelledby="eligibility-title">
     <div class="callout-icon" aria-hidden="true">!</div>
     <div>
