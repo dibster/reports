@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>PO list SQL — how it works</title>
+<style>
+  :root { --bg:#f7f7f5; --ink:#1c1c1c; --muted:#5c5c5c; --line:#dcdcd6; --card:#fff; --accent:#2f6f4f; --code-bg:#1e2430; --code-ink:#e6e6e6; --kw:#7fb3ff; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  header { padding:2.4rem 1.5rem 1.6rem; background:#2b2f33; color:#fff; }
+  header h1 { margin:0 0 .4rem; font-size:1.7rem; }
+  header p { margin:0; color:#c9cdd2; max-width:70ch; }
+  main { max-width: 60rem; margin:0 auto; padding: 1.5rem 1.5rem 5rem; }
+  h2 { margin-top:2.6rem; font-size:1.3rem; border-bottom:2px solid var(--line); padding-bottom:.35rem; }
+  h3 { margin-top:1.9rem; font-size:1.08rem; }
+  p { max-width:72ch; }
+  .lede { font-size:1.05rem; color:var(--muted); }
+  code { background:#ececE6; padding:.08em .35em; border-radius:4px; font-size:.88em; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  pre { background:var(--code-bg); color:var(--code-ink); padding:1.1rem 1.2rem; border-radius:10px; overflow-x:auto; font-size:.82rem; line-height:1.5; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  pre code { background:none; padding:0; color:inherit; font-size:1em; }
+  pre .c { color:#8a94a3; font-style:italic; }   /* comment */
+  pre .k { color:var(--kw); }                     /* keyword */
+  pre .s { color:#c6e08b; }                       /* string/clause highlight */
+  pre .m { color:#e8b06a; font-weight:600; }      /* marker */
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.3rem; margin:1.1rem 0; }
+  .card h3 { margin-top:0; }
+  table { border-collapse:collapse; width:100%; margin:1rem 0; font-size:.93rem; }
+  th, td { text-align:left; border-bottom:1px solid var(--line); padding:.5rem .6rem; vertical-align:top; }
+  th { background:#efefe9; }
+  .note { border-left:4px solid var(--accent); background:#eef4f0; padding:.7rem 1rem; border-radius:0 8px 8px 0; margin:1rem 0; }
+  .why { border-left:4px solid #b0863a; background:#faf4e9; padding:.7rem 1rem; border-radius:0 8px 8px 0; margin:1rem 0; }
+  details { margin:.7rem 0; border:1px solid var(--line); border-radius:10px; background:var(--card); }
+  summary { cursor:pointer; padding:.7rem 1rem; font-weight:600; }
+  details > div { padding:0 1.1rem 1rem; }
+  .toc a { color:var(--accent); text-decoration:none; }
+  .toc li { margin:.15rem 0; }
+  .tag { display:inline-block; font-size:.72rem; letter-spacing:.03em; text-transform:uppercase; background:#2f6f4f; color:#fff; border-radius:999px; padding:.1rem .55rem; margin-right:.4rem; vertical-align:.08em; }
+  .tag.alt { background:#8a5a2b; }
+  footer { color:var(--muted); font-size:.85rem; margin-top:3rem; border-top:1px solid var(--line); padding-top:1rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1>The PO list SQL, explained</h1>
+  <p>What <code>GET /v1/purchase-orders</code> actually runs against the database, and why each join and union is there.</p>
+</header>
+<main>
+
+<p class="lede">The handler is <code>GetPurchaseOrders</code> in <code>api/purchase_orders.go</code> (route wired in <code>api/router.go</code>). A request triggers <strong>two</strong> round trips, both built at runtime with <code>sqlx.In</code> (which expands the <code>IN (?)</code> lists) and <code>Rebind</code> (which swaps <code>?</code> for the driver's placeholder). The first is tidy and cheap. The second is where all the size lives, and it is almost entirely one subquery that answers &ldquo;how many units on this PO have actually been commissioned, per line?&rdquo;</p>
+
+<nav class="toc card">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#q1">Query 1 — the PO heads (the actual &ldquo;list&rdquo;)</a></li>
+    <li><a href="#q2">Query 2 — the line items, with activation counts</a></li>
+    <li><a href="#joins">Every join, one at a time</a></li>
+    <li><a href="#unions">The three <code>UNION ALL</code> branches (and why they exist)</a></li>
+    <li><a href="#rank">Why it ranks history instead of just counting</a></li>
+    <li><a href="#binding">Binding mode: what the marker comments turn into</a></li>
+    <li><a href="#indexes">Which indexes are being leaned on</a></li>
+  </ol>
+</nav>
+
+<h2 id="q1">1. Query 1 — the PO heads <span class="tag">small</span></h2>
+
+<p>This is the query that produces the list itself: one row per purchase order, with its ship-to location joined in. Default view is <strong>open</strong> (<code>open,partial</code>); <code>view=closed</code> swaps in <code>completed</code>; an explicit <code>status=</code> param overrides both. Everything is fenced to the caller's factory via <code>po.production_location</code>.</p>
+
+<pre><code><span class="k">SELECT</span> po.id, po.status, po.purchase_order_number,
+       COALESCE(po.urn, '')                   <span class="k">AS</span> urn,
+       COALESCE(po.purchase_order_issuer, '') <span class="k">AS</span> purchase_order_issuer,
+       COALESCE(po.supplier, '')              <span class="k">AS</span> supplier,
+       COALESCE(l.id, '')                     <span class="k">AS</span> ship_to_id,
+       COALESCE(l.location_name, '')          <span class="k">AS</span> ship_to_name,
+       COALESCE(DATE_FORMAT(po.purchase_order_date, '%Y-%m-%d'), '') <span class="k">AS</span> purchase_order_date
+<span class="k">FROM</span> purchase_order po
+<span class="k">LEFT JOIN</span> location l <span class="k">ON</span> po.ship_to_location = l.id
+<span class="k">WHERE</span> po.status <span class="k">IN</span> (?)                  <span class="c">-- 'open','partial' by default</span>
+  <span class="k">AND</span> po.production_location = ?        <span class="c">-- the caller's factory (the fence)</span>
+<span class="k">ORDER BY</span> (po.status = 'partial') <span class="k">DESC</span>,     <span class="c">-- part-done work floats to the top</span>
+         po.purchase_order_date <span class="k">DESC</span>,
+         po.purchase_order_number</code></pre>
+
+<div class="why"><strong>Why a LEFT JOIN?</strong> A purchase order that has not been assigned a ship-to location must still appear in the list. An inner join would silently drop it. The <code>COALESCE(..., '')</code> around the joined columns does the same job at the value level: absent becomes an empty string, matching the nested JSON contract the app expects, and turning the missing location into <code>null</code> in the response rather than a phantom object.</div>
+
+<h2 id="q2">2. Query 2 — the line items with activation counts <span class="tag alt">the big one</span></h2>
+
+<p>Once the heads are known, the handler collects their ids and runs this. The outer half is boring: get each PO's lines, and the product behind each line. The whole of the complexity is the <code>LEFT JOIN (&hellip;) active_items</code> subquery on the right, which computes <code>qty_activated</code> per <em>PO&nbsp;urn + product</em>.</p>
+
+<pre><code><span class="k">SELECT</span> poli.purchase_order_id, poli.id <span class="k">AS</span> line_item_id,
+       COALESCE(poli.configuration_id, '') <span class="k">AS</span> configuration_id,
+       p.id <span class="k">AS</span> product_id, COALESCE(p.product_name, '') <span class="k">AS</span> product_name,
+       COALESCE(p.gtin, '') <span class="k">AS</span> gtin, COALESCE(p.size, '') <span class="k">AS</span> size,
+       COALESCE(p.variant_description, '') <span class="k">AS</span> variant_description,
+       CAST(poli.quantity <span class="k">AS SIGNED</span>) <span class="k">AS</span> qty_ordered,
+       COALESCE(active_items.qty_activated, 0) <span class="k">AS</span> qty_activated
+<span class="k">FROM</span> purchase_order_line_item poli
+<span class="k">JOIN</span> purchase_order po <span class="k">ON</span> po.id = poli.purchase_order_id
+<span class="k">JOIN</span> product p <span class="k">ON</span> poli.product = p.id
+<span class="k">LEFT JOIN</span> (
+  <span class="c">/* &mdash;&mdash;&mdash;&mdash; the activation-count subquery, see sections 3&ndash;5 &mdash;&mdash;&mdash;&mdash; */</span>
+  <span class="k">WITH</span> requested <span class="k">AS</span> (
+    <span class="k">SELECT DISTINCT</span> po.urn <span class="k">AS</span> biz_transaction_po_id, poli.product <span class="k">AS</span> product_join_key
+    <span class="k">FROM</span> purchase_order_line_item poli
+    <span class="k">JOIN</span> purchase_order po <span class="k">ON</span> po.id = poli.purchase_order_id
+    <span class="k">WHERE</span> poli.purchase_order_id <span class="k">IN</span> (?)            <span class="c">-- just this page of POs</span>
+  ),
+  candidate_items <span class="k">AS</span> (
+    <span class="k">SELECT DISTINCT</span> COALESCE(<span class="k">NULLIF</span>(c.epc_join_key, ''), c.epc_id_raw) <span class="k">AS</span> item_id
+    <span class="k">FROM</span> epc_events p
+    <span class="k">JOIN</span> requested r <span class="k">ON</span> r.product_join_key = p.product_join_key
+    <span class="k">JOIN</span> epc_events c <span class="m">USE INDEX(epc_events_biz_location_join_key_foreign)</span>
+      <span class="k">ON</span> c.event_id = p.event_id
+      <span class="k">AND</span> c.biz_transaction_po_id = r.biz_transaction_po_id
+      <span class="k">AND</span> c.biz_location_join_key = ?              <span class="c">-- the factory location</span>
+    <span class="k">WHERE</span> p.epc_rel_type = 'parentID'
+      <span class="k">AND</span> c.event_type = 'AssociationEvent'
+      <span class="k">AND</span> c.epc_rel_type = 'childEPCs'
+      <span class="k">AND</span> c.biz_step = 'commissioning'
+  ),
+  history <span class="k">AS</span> (
+    <span class="c">-- branch A: modern rows where epc_join_key is populated</span>
+    <span class="k">SELECT</span> c.epc_join_key <span class="k">AS</span> item_id, p.product_join_key, c.biz_transaction_po_id, c.biz_step,
+           c.event_time, c.record_time, c.event_id
+    <span class="k">FROM</span> epc_events c <span class="m">USE INDEX(idx_epc_binding_history)</span>
+    <span class="k">JOIN</span> candidate_items ci <span class="k">ON</span> ci.item_id = c.epc_join_key
+    <span class="k">JOIN</span> epc_events p <span class="k">ON</span> p.event_id = c.event_id <span class="k">AND</span> p.epc_rel_type = 'parentID'
+    <span class="k">WHERE</span> c.epc_join_key &lt;&gt; ''
+      <span class="k">AND</span> c.event_type = 'AssociationEvent' <span class="k">AND</span> c.epc_rel_type = 'childEPCs'
+      <span class="k">AND</span> c.biz_step <span class="k">IN</span> ('commissioning','decommissioning')
+    <span class="k">UNION ALL</span>
+    <span class="c">-- branch B: legacy rows where epc_join_key is empty string</span>
+    <span class="k">SELECT</span> c.epc_id_raw <span class="k">AS</span> item_id, p.product_join_key, c.biz_transaction_po_id, c.biz_step,
+           c.event_time, c.record_time, c.event_id
+    <span class="k">FROM</span> epc_events c <span class="m">USE INDEX(idx_epc_binding_history)</span>
+    <span class="k">JOIN</span> candidate_items ci <span class="k">ON</span> ci.item_id = c.epc_id_raw
+    <span class="k">JOIN</span> epc_events p <span class="k">ON</span> p.event_id = c.event_id <span class="k">AND</span> p.epc_rel_type = 'parentID'
+    <span class="k">WHERE</span> c.epc_join_key = ''
+      <span class="k">AND</span> c.event_type = 'AssociationEvent' <span class="k">AND</span> c.epc_rel_type = 'childEPCs'
+      <span class="k">AND</span> c.biz_step <span class="k">IN</span> ('commissioning','decommissioning')
+    <span class="k">UNION ALL</span>
+    <span class="c">-- branch C: legacy rows where epc_join_key is NULL</span>
+    <span class="k">SELECT</span> c.epc_id_raw <span class="k">AS</span> item_id, p.product_join_key, c.biz_transaction_po_id, c.biz_step,
+           c.event_time, c.record_time, c.event_id
+    <span class="k">FROM</span> epc_events c <span class="m">USE INDEX(idx_epc_binding_history)</span>
+    <span class="k">JOIN</span> candidate_items ci <span class="k">ON</span> ci.item_id = c.epc_id_raw
+    <span class="k">JOIN</span> epc_events p <span class="k">ON</span> p.event_id = c.event_id <span class="k">AND</span> p.epc_rel_type = 'parentID'
+    <span class="k">WHERE</span> c.epc_join_key <span class="k">IS NULL</span>
+      <span class="k">AND</span> c.event_type = 'AssociationEvent' <span class="k">AND</span> c.epc_rel_type = 'childEPCs'
+      <span class="k">AND</span> c.biz_step <span class="k">IN</span> ('commissioning','decommissioning')
+  ),
+  ranked <span class="k">AS</span> (
+    <span class="k">SELECT</span> *, <span class="k">ROW_NUMBER</span>() <span class="k">OVER</span> (
+      <span class="k">PARTITION BY</span> item_id <span class="k">ORDER BY</span> event_time <span class="k">DESC</span>, record_time <span class="k">DESC</span>
+    ) <span class="k">AS</span> rank_desc <span class="k">FROM</span> history
+  )
+  <span class="k">SELECT</span> r.biz_transaction_po_id, r.product_join_key, <span class="k">COUNT</span>(r.item_id) <span class="k">AS</span> qty_activated
+  <span class="k">FROM</span> ranked r
+  <span class="k">JOIN</span> requested s
+    <span class="k">ON</span> s.biz_transaction_po_id = r.biz_transaction_po_id
+    <span class="k">AND</span> s.product_join_key = r.product_join_key
+  <span class="k">WHERE</span> r.rank_desc = 1 <span class="k">AND</span> r.biz_step = 'commissioning'
+  <span class="k">GROUP BY</span> r.biz_transaction_po_id, r.product_join_key
+) active_items
+  <span class="k">ON</span> active_items.biz_transaction_po_id = po.urn
+  <span class="k">AND</span> active_items.product_join_key = p.id
+<span class="k">WHERE</span> poli.purchase_order_id <span class="k">IN</span> (?)            <span class="c">-- same PO ids again</span>
+<span class="k">ORDER BY</span> poli.purchase_order_id, p.gtin</code></pre>
+
+<div class="why"><strong>Why <code>LEFT JOIN</code> for <code>active_items</code>?</strong> A line with zero commissioned units must still show, with <code>qty_activated = 0</code>. An inner join would delete exactly the lines an operator most wants to see. The <code>COALESCE(active_items.qty_activated, 0)</code> turns the absent row into a zero.</div>
+
+<h2 id="joins">3. Every join, one at a time</h2>
+
+<details open><summary><span class="tag">head</span> <code>LEFT JOIN location</code></summary><div>
+<p>Resolves <code>po.ship_to_location</code> to a display name. Left, because the location is optional. Cheap: a primary-key lookup on <code>location</code>.</p>
+</div></details>
+
+<details open><summary><span class="tag">lines</span> <code>JOIN purchase_order</code></summary><div>
+<p>Needed to reach the PO's <code>urn</code>, which is the transaction key the EPC events carry (<code>biz_transaction_po_id</code>). The activation count is keyed on urn&nbsp;+&nbsp;product, not on the line-item id, so the line query has to climb back up to the PO to get it. It also lets the subquery and the outer query agree on exactly which POs are in play.</p>
+</div></details>
+
+<details open><summary><span class="tag">lines</span> <code>JOIN product</code></summary><div>
+<p>Two jobs at once. It supplies the product metadata for the response (name, GTIN, size, variant), and it supplies <code>p.id</code> as the join key on the right-hand side of <code>active_items</code>. That looks odd next to <code>product_join_key</code>, but they are the same value: the events store the product identity as <code>/01/{gtin14}</code>, which is exactly the <code>product.id</code> the line items point at. So <code>active_items.product_join_key = p.id</code> lines up two differently-named columns that hold the same identifier.</p>
+</div></details>
+
+<details open><summary><span class="tag">sub</span> <code>WITH requested</code> — a CTE, not a join</summary><div>
+<p>Not a join, but it is the joist everything else rests on. It is the set of <em>(PO urn, product)</em> pairs the page actually needs. Every later step is filtered against it. This is the difference between &ldquo;count activations across the whole event table&rdquo; and &ldquo;count activations for these POs.&rdquo;</p>
+</div></details>
+
+<details open><summary><span class="tag alt">sub</span> <code>JOIN requested r</code> (inside <code>candidate_items</code>)</summary><div>
+<p>Matches event rows to the products on this page. This is what stops the candidate discovery from being a full scan of <code>epc_events</code>.</p>
+</div></details>
+
+<details open><summary><span class="tag alt">sub</span> <code>JOIN epc_events c USE INDEX(&hellip;)</code> (inside <code>candidate_items</code>)</summary><div>
+<p>The discovery step. For each parent event of a requested product, it finds the child EPC rows (<code>childEPCs</code>) that belong to the same event, the same PO, and the caller's factory location. The <code>USE INDEX</code> forces the lookup onto <code>epc_events_biz_location_join_key_foreign</code> so the factory fence is satisfied by an index seek rather than a scan. Note the subtlety the code comment calls out: the <em>commissioning</em> event must carry the factory's location, but the parent's location is not required &mdash; discovery is fenced, the full history it triggers is not.</p>
+</div></details>
+
+<details open><summary><span class="tag alt">sub</span> <code>JOIN candidate_items ci</code> (inside <code>history</code>)</summary><div>
+<p>Keeps only the histories of items that survived discovery. This is the second half of the two-phase approach: phase one finds <em>which</em> items are interesting, cheaply; phase two fetches everything known about them. It deliberately does <em>not</em> re-apply the factory fence here, because a decommissioning event recorded at a different location still has to be able to cancel a commissioning event.</p>
+</div></details>
+
+<details open><summary><span class="tag alt">sub</span> <code>JOIN epc_events p ON &hellip; parentID</code> (inside <code>history</code>)</summary><div>
+<p>Self-join back onto <code>epc_events</code> on <code>event_id</code> to pull the parent (<code>parentID</code>) row of the same AssociationEvent. The child row carries the item identity; the parent row carries the <code>product_join_key</code>. Doing it branch by branch keeps it inside the same index-friendly shape as the rest of <code>history</code>.</p>
+</div></details>
+
+<details open><summary><span class="tag alt">sub</span> <code>JOIN requested s</code> (the final select)</summary><div>
+<p><code>history</code> is built from item identities, and an item's events can mention more than one PO or product over its life. Joining back to <code>requested</code> at the end drops any event that does not belong to a (PO, product) pair on this page, and gives the grouping keys for the <code>COUNT</code>. Without it, counts could bleed across POs that happen to share an item.</p>
+</div></details>
+
+<h2 id="unions">4. The three <code>UNION ALL</code> branches</h2>
+
+<p>They are logically <strong>the same query written three times</strong>. The reason is entirely about index access.</p>
+
+<p>The item identity is:</p>
+<pre><code>COALESCE(<span class="k">NULLIF</span>(c.epc_join_key, ''), c.epc_id_raw)</code></pre>
+
+<p>Read that as: &ldquo;use <code>epc_join_key</code> if it is set and not empty; otherwise fall back to <code>epc_id_raw</code>.&rdquo; That is the right <em>answer</em>, but as a single expression it would have to wrap the column in a function, and that defeats the leading column of <code>idx_epc_binding_history(epc_join_key, &hellip;)</code>. A function around a column turns an index seek into a full scan.</p>
+
+<p>Splitting into three branches means each one can constrain the <em>raw</em> column with a plain equality:</p>
+
+<table>
+  <thead><tr><th>Branch</th><th>Predicate</th><th>Identity used</th><th>Hits the index?</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td><code>epc_join_key &lt;&gt; ''</code></td><td><code>c.epc_join_key</code></td><td>Yes — direct seek on the leading column</td></tr>
+    <tr><td>B</td><td><code>epc_join_key = ''</code></td><td><code>c.epc_id_raw</code></td><td>Yes — seek on the empty-string value</td></tr>
+    <tr><td>C</td><td><code>epc_join_key IS NULL</code></td><td><code>c.epc_id_raw</code></td><td>Yes — seek on the NULL range</td></tr>
+  </tbody>
+</table>
+
+<div class="note"><strong>Why not two branches?</strong> Because in SQL, <code>= ''</code> and <code>&lt;&gt; ''</code> are both <em>false</em> when the value is NULL. There is no single comparison operator that folds the NULL case into either of the other two, so NULL needs its own branch. It is not redundancy &mdash; it is the truth table.</div>
+
+<div class="note"><strong>Why <code>UNION ALL</code> and not <code>UNION</code>?</strong> The three predicates are mutually exclusive, so the row sets cannot collide. <code>UNION ALL</code> skips a deduplication pass that would never remove anything anyway.</div>
+
+<h2 id="rank">5. Why the query ranks history instead of just counting</h2>
+
+<p>The naive query is &ldquo;count the commissioning events for this PO and product.&rdquo; That is wrong, and the whole shape of the subquery exists to avoid it. The quantity is the item's <em>current state</em>, and state can change:</p>
+
+<pre><code>item X:  commissioned 10:00  <span class="c">-- recorded</span>
+         decommissioned 10:01 <span class="c">-- no longer active</span>
+         commissioned 10:02   <span class="c">-- active again</span></code></pre>
+
+<p>Counting commissioning events gives 2. Counting commissioning minus decommissioning could go negative. The correct answer is 1: look at the item's <em>latest</em> event and ask if it is <code>commissioning</code>. That is exactly <code>ROW_NUMBER() &hellip; ORDER BY event_time DESC, record_time DESC</code> followed by <code>rank_desc = 1 AND biz_step = 'commissioning'</code>.</p>
+
+<p>That is also why the history fetch is <em>unfenced</em> while discovery is fenced. To know an item is still commissioned you must be able to see a later decommissioning event, wherever it was recorded. Fencing the history would let a moved or off-site decommission go unseen, and the item would be counted as active when it is not.</p>
+
+<div class="card">
+<h3>Choosing the ordering key</h3>
+<p><code>event_time</code> is the tablet's clock &mdash; the semantically correct order for an offline-first store, where a re-commission with a later event_time should beat an earlier decommission even if it synced first. <code>record_time</code> is the server's stamp, used only as a tiebreak, so a device with a frozen clock still gets a deterministic winner (the later-recorded event).</p>
+</div>
+
+<h2 id="binding">6. Binding mode: what the marker comments turn into</h2>
+
+<p>You will have noticed comments like <code>/* declaration join */</code> and <code>/* valid association event */</code> sitting inside SQL. They are placeholders. <code>bindingQuery</code> in <code>api/binding_queries.go</code> does a string substitution only when <code>EVENT_TIME_BINDING_ENABLED</code> is true; otherwise those lines stay as inert comments and the query runs in the compatibility mode above.</p>
+
+<table>
+  <thead><tr><th>Marker</th><th>Becomes</th></tr></thead>
+  <tbody>
+    <tr><td><code>/* declaration join hint */</code></td><td><code>/*+ INL_JOIN(declaration) */</code> — a TiDB hint</td></tr>
+    <tr><td><code>/* declaration join */</code></td><td>A <code>LEFT JOIN epcis_events_raw</code> keyed on <code>CONCAT('err:', c.event_id)</code></td></tr>
+    <tr><td><code>/* valid association event */</code></td><td>The <code>has_error = FALSE</code> checks plus a correction/deletion test against the declaration row</td></tr>
+    <tr><td><code>event_time DESC, record_time DESC</code></td><td><code>event_time DESC, BINARY event_id DESC</code></td></tr>
+  </tbody>
+</table>
+
+<p>In binding mode the validity filter is applied <em>before</em> ranking, so if an event has been invalidated the winner falls back to the next valid one rather than disappearing. The two modes are the same query with a different notion of &ldquo;which event is latest and real.&rdquo;</p>
+
+<h2 id="indexes">7. Indexes being leaned on</h2>
+
+<table>
+  <thead><tr><th>Index</th><th>Used by</th></tr></thead>
+  <tbody>
+    <tr><td><code>idx_epc_binding_history(epc_join_key, event_type, epc_rel_type, event_time, event_id)</code></td><td>All three <code>history</code> branches — the seek that makes &ldquo;fetch this item's history&rdquo; cheap</td></tr>
+    <tr><td><code>epc_events_biz_location_join_key_foreign(biz_location_join_key)</code></td><td><code>candidate_items</code> — the factory fence in discovery</td></tr>
+  </tbody>
+</table>
+
+<p>So the query is really a two-phase funnel: an indexed seek narrows to <em>this factory's</em> items on <em>these POs</em>, then an indexed fetch pulls each of those items' complete histories, then a window function picks each item's latest event, and finally a count groups the survivors by PO and product.</p>
+
+
+<h2 id="wire">8. Appendix — the exact wire SQL (captured)</h2>
+
+<p>This is ground truth: it was produced by running the handler with the debug flag below and reading the emitted log, not assembled by hand. It shows a real request, <code>GET /v1/purchase-orders?view=open&amp;limit=2</code>, for factory <code>/414/8934567800013</code>, with two POs (<code>a</code>, <code>b</code>). The <code>IN (?)</code> lists are already expanded, and the trailing <code>args</code> array is positional and lines up one-to-one with the <code>?</code> markers.</p>
+
+<h3>Query 1 — heads</h3>
+<pre><code><span class="k">SELECT</span> po.id, po.status, po.purchase_order_number,
+       COALESCE(po.urn, '') <span class="k">AS</span> urn,
+       COALESCE(po.purchase_order_issuer, '') <span class="k">AS</span> purchase_order_issuer,
+       COALESCE(po.supplier, '') <span class="k">AS</span> supplier,
+       COALESCE(l.id, '') <span class="k">AS</span> ship_to_id,
+       COALESCE(l.location_name, '') <span class="k">AS</span> ship_to_name,
+       COALESCE(DATE_FORMAT(po.purchase_order_date, '%Y-%m-%d'), '') <span class="k">AS</span> purchase_order_date
+<span class="k">FROM</span> purchase_order po
+<span class="k">LEFT JOIN</span> location l <span class="k">ON</span> po.ship_to_location = l.id
+<span class="k">WHERE</span> po.status <span class="k">IN</span> (?, ?) <span class="k">AND</span> po.production_location = ?
+<span class="k">ORDER BY</span> (po.status = 'partial') <span class="k">DESC</span>, po.purchase_order_date <span class="k">DESC</span>, po.purchase_order_number
+<span class="k">LIMIT</span> ?</code></pre>
+<p><strong>args:</strong> <code>["open", "partial", "/414/8934567800013", 2]</code></p>
+
+<h3>Query 2 — lines</h3>
+<p>Structurally identical to section 2; the only difference is that every <code>IN (?)</code> is now <code>IN (?, ?)</code> and there are five args. The marker comments are still present because this run had <code>EVENT_TIME_BINDING_ENABLED=false</code>.</p>
+<pre><code><span class="c">-- outer half omitted for brevity; identical to section 2 --</span>
+   <span class="k">WHERE</span> poli.purchase_order_id <span class="k">IN</span> (?, ?)          <span class="c">-- requested CTE</span>
+   <span class="k">AND</span> c.biz_location_join_key = ?                   <span class="c">-- factory fence</span>
+   ...
+<span class="k">WHERE</span> poli.purchase_order_id <span class="k">IN</span> (?, ?)          <span class="c">-- outer filter</span></code></pre>
+<p><strong>args:</strong> <code>["a", "b", "/414/8934567800013", "a", "b"]</code> &mdash; note the factory location sits in the middle, between the two expanded id lists, matching the order the <code>?</code> markers appear in the SQL.</p>
+
+<div class="card">
+<h3>Reproducing this yourself</h3>
+<p>The service has a temporary debug switch, <code>SQL_DEBUG_LOG</code> (default <code>false</code>). Set it to <code>true</code> and every purchase-order request logs two <code>SQL debug</code> lines at INFO &mdash; one for the heads query, one for the lines query &mdash; carrying the final Rebound <code>sql</code> and the positional <code>args</code>. The emitted text is exactly what <code>go-sql-driver/mysql</code> hands to TiDB, so you can paste it straight into a client.</p>
+<pre><code>SQL_DEBUG_LOG=true ./commissioning   <span class="c"># then hit /v1/purchase-orders and read the log</span></code></pre>
+<p>It is wired in <code>api/sqldebug.go</code> and called immediately before each <code>SelectContext</code> in <code>GetPurchaseOrders</code>. Off by default, so it costs nothing in production beyond a boolean check.</p>
+</div>
+
+<footer>
+Generated from <code>api/purchase_orders.go</code>, <code>api/queries.go</code>, <code>api/binding_queries.go</code>. Values and indexes reflected from <code>tests/fixtures/commissioning.sql</code> and <code>migrations/</code>.
+</footer>
+
+</main>
+</body>
+</html>
